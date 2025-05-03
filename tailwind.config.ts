@@ -64,10 +64,10 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
                 mateng: {
-                    'delivery': '#4F46E5',    // Indigo for Delivery
-                    'discovery': '#0EA5E9',   // Sky Blue for Discovery
-                    'education': '#10B981',   // Emerald for Education
-                    'marketplace': '#8B5CF6'  // Violet for Marketplace
+                    'delivery': '#38A169',    // Changed to green shade
+                    'discovery': '#48BB78',   // Changed to green shade
+                    'education': '#10B981',   // Keep emerald for Education as primary
+                    'marketplace': '#34D399'  // Changed to green shade
                 }
 			},
 			borderRadius: {

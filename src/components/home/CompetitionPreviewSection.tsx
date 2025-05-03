@@ -1,16 +1,23 @@
 
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
+import { GraduationCap } from "lucide-react";
 
 const CompetitionPreviewSection = () => {
   return (
-    <section className="mateng-section bg-gradient-to-r from-indigo-600 to-purple-600 text-white relative">
+    <section className="mateng-section bg-gradient-to-r from-green-600 to-emerald-600 text-white relative">
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">June 2025 Competition</h2>
+        <div className="text-center mb-10">
+          <div className="inline-block mb-4">
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full flex items-center">
+              <GraduationCap size={20} className="mr-2" /> 
+              Mateng Education
+            </div>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">June 2025 Education Competition</h2>
           <p className="text-lg md:text-xl max-w-2xl mx-auto">
-            Join our exciting community competition with amazing prizes and opportunities to showcase your talents.
+            Join our exciting education-focused community competition with amazing prizes and opportunities to showcase your talents.
           </p>
         </div>
         
@@ -18,21 +25,21 @@ const CompetitionPreviewSection = () => {
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg hover-card">
             <h3 className="text-xl font-bold mb-3">$50,000 Prize Pool</h3>
             <p className="text-gray-200">
-              Compete for a share of our generous prize pool and gain recognition for your innovative ideas.
+              Compete for a share of our generous prize pool and gain recognition for your innovative educational ideas.
             </p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg hover-card">
             <h3 className="text-xl font-bold mb-3">Network with Experts</h3>
             <p className="text-gray-200">
-              Connect with industry leaders and experts who can help take your career to the next level.
+              Connect with education industry leaders and experts who can help take your career to the next level.
             </p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg hover-card">
             <h3 className="text-xl font-bold mb-3">Showcase Your Skills</h3>
             <p className="text-gray-200">
-              Demonstrate your abilities on a prominent platform and gain visibility in the community.
+              Demonstrate your teaching abilities on a prominent platform and gain visibility in the education community.
             </p>
           </div>
         </div>

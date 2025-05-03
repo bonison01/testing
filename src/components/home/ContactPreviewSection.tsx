@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const ContactPreviewSection = () => {
   return (
-    <section className="mateng-section bg-gray-50">
+    <section className="mateng-section bg-green-50">
       <div className="container mx-auto px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="section-title">Get In Touch</h2>

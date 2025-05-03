@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <div className="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white pt-24 pb-16 md:pt-32 md:pb-24">
+    <div className="relative bg-gradient-to-r from-green-600 to-emerald-600 text-white pt-24 pb-16 md:pt-32 md:pb-24">
       <div className="absolute inset-0 bg-black opacity-40"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center">
@@ -20,14 +20,14 @@ const HeroSection = () => {
                 <NavLink to="/services">Our Services</NavLink>
               </Button>
               <Button asChild variant="outline" size="lg" className="bg-white/10 text-base border-white">
-                <NavLink to="/competition">Join Our Competition</NavLink>
+                <NavLink to="/services#education">Learn about Education</NavLink>
               </Button>
             </div>
           </div>
           <div className="w-full lg:w-1/2 mt-12 lg:mt-0">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-3">June 2025 Competition</h2>
-              <p className="mb-4">Join our exclusive community challenge and win amazing prizes while showcasing your talents.</p>
+              <h2 className="text-2xl font-bold mb-3">June 2025 Education Competition</h2>
+              <p className="mb-4">Join our exclusive education challenge and win amazing prizes while showcasing your talents.</p>
               <div className="flex justify-between items-center">
                 <div className="flex flex-col">
                   <span className="text-2xl font-bold">00</span>
