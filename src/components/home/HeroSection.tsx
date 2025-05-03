@@ -1,0 +1,60 @@
+
+import { Button } from "@/components/ui/button";
+import { NavLink } from "react-router-dom";
+
+const HeroSection = () => {
+  return (
+    <div className="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white pt-24 pb-16 md:pt-32 md:pb-24">
+      <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center">
+          <div className="w-full lg:w-1/2 lg:pr-12">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Bringing Communities Together
+            </h1>
+            <p className="text-lg md:text-xl mb-8 text-gray-100 max-w-xl">
+              Mateng Hub Connect is revolutionizing hyperlocal delivery with innovative solutions across four powerful verticals. Established in December 2022, we're building the future of community commerce.
+            </p>
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+              <Button asChild size="lg" className="text-base">
+                <NavLink to="/services">Our Services</NavLink>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="bg-white/10 text-base border-white">
+                <NavLink to="/competition">Join Our Competition</NavLink>
+              </Button>
+            </div>
+          </div>
+          <div className="w-full lg:w-1/2 mt-12 lg:mt-0">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <h2 className="text-2xl font-bold mb-3">June 2025 Competition</h2>
+              <p className="mb-4">Join our exclusive community challenge and win amazing prizes while showcasing your talents.</p>
+              <div className="flex justify-between items-center">
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold">00</span>
+                  <span className="text-sm">Days</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold">00</span>
+                  <span className="text-sm">Hours</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold">00</span>
+                  <span className="text-sm">Minutes</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold">00</span>
+                  <span className="text-sm">Seconds</span>
+                </div>
+              </div>
+              <Button asChild className="w-full mt-4">
+                <NavLink to="/competition">Register Now</NavLink>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HeroSection;
