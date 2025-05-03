@@ -25,30 +25,38 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="w-full lg:w-1/2 mt-12 lg:mt-0">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-3">June 2025 Education Competition</h2>
-              <p className="mb-4">Join our exclusive education challenge and win amazing prizes while showcasing your talents.</p>
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col">
-                  <span className="text-2xl font-bold">00</span>
-                  <span className="text-sm">Days</span>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 relative overflow-hidden">
+              {/* Added student image background */}
+              <div className="absolute inset-0 bg-cover bg-center z-0" style={{ 
+                backgroundImage: 'url("https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1000")', 
+                opacity: '0.4' 
+              }}></div>
+              <div className="relative z-10">
+                <h2 className="text-2xl font-bold mb-3">June 2025 Education Competition</h2>
+                <p className="mb-2">For students of class 4, 5, 6 and 11, 12</p>
+                <p className="mb-4">Join our exclusive education challenge and win amazing prizes while showcasing your talents.</p>
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold">00</span>
+                    <span className="text-sm">Days</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold">00</span>
+                    <span className="text-sm">Hours</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold">00</span>
+                    <span className="text-sm">Minutes</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold">00</span>
+                    <span className="text-sm">Seconds</span>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-2xl font-bold">00</span>
-                  <span className="text-sm">Hours</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-2xl font-bold">00</span>
-                  <span className="text-sm">Minutes</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-2xl font-bold">00</span>
-                  <span className="text-sm">Seconds</span>
-                </div>
+                <Button asChild className="w-full mt-4">
+                  <NavLink to="/competition">Register Now</NavLink>
+                </Button>
               </div>
-              <Button asChild className="w-full mt-4">
-                <NavLink to="/competition">Register Now</NavLink>
-              </Button>
             </div>
           </div>
         </div>
