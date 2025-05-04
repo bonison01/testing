@@ -166,6 +166,84 @@ export type Database = {
           },
         ]
       }
+      mental_maths_applications: {
+        Row: {
+          aadhaar_back_url: string
+          aadhaar_front_url: string
+          aadhaar_number: string
+          address: string
+          applicant_name: string
+          class: string
+          created_at: string | null
+          date_of_birth: string
+          exam_centre: string | null
+          exam_date: string | null
+          exam_time: string | null
+          father_name: string
+          form_no: string
+          gender: string
+          id: string
+          institute_name: string | null
+          mobile_number: string
+          mother_name: string
+          payment_screenshot_url: string
+          payment_verified: boolean | null
+          photo_url: string
+          roll_number: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          aadhaar_back_url: string
+          aadhaar_front_url: string
+          aadhaar_number: string
+          address: string
+          applicant_name: string
+          class: string
+          created_at?: string | null
+          date_of_birth: string
+          exam_centre?: string | null
+          exam_date?: string | null
+          exam_time?: string | null
+          father_name: string
+          form_no: string
+          gender: string
+          id?: string
+          institute_name?: string | null
+          mobile_number: string
+          mother_name: string
+          payment_screenshot_url: string
+          payment_verified?: boolean | null
+          photo_url: string
+          roll_number?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          aadhaar_back_url?: string
+          aadhaar_front_url?: string
+          aadhaar_number?: string
+          address?: string
+          applicant_name?: string
+          class?: string
+          created_at?: string | null
+          date_of_birth?: string
+          exam_centre?: string | null
+          exam_date?: string | null
+          exam_time?: string | null
+          father_name?: string
+          form_no?: string
+          gender?: string
+          id?: string
+          institute_name?: string | null
+          mobile_number?: string
+          mother_name?: string
+          payment_screenshot_url?: string
+          payment_verified?: boolean | null
+          photo_url?: string
+          roll_number?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -292,6 +370,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_competition_form_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       get_all_events: {
         Args: Record<PropertyKey, never>
         Returns: {

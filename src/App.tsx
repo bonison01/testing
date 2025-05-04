@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,6 +19,10 @@ import MatengMarketplacePage from "./pages/MatengMarketplacePage";
 import AuthPage from "./pages/AuthPage";
 import AdminPage from "./pages/AdminPage";
 import NotFound from "./pages/NotFound";
+import CompetitionApplicationPage from "./pages/CompetitionApplicationPage";
+import ApplicationSuccessPage from "./pages/ApplicationSuccessPage";
+import AdmitCardPage from "./pages/AdmitCardPage";
+import AdminApplicationsPage from "./pages/AdminApplicationsPage";
 
 const queryClient = new QueryClient();
 
@@ -65,6 +68,9 @@ const AppContent = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/competition" element={<CompetitionPage />} />
+        <Route path="/competition/apply" element={<CompetitionApplicationPage />} />
+        <Route path="/competition/application-success" element={<ApplicationSuccessPage />} />
+        <Route path="/competition/admit-card" element={<AdmitCardPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/delivery" element={<MatengDeliveryPage />} />
         <Route path="/discovery" element={<MatengDiscoveryPage />} />
@@ -72,6 +78,7 @@ const AppContent = () => {
         <Route path="/marketplace" element={<MatengMarketplacePage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/applications" element={<AdminApplicationsPage />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,10 +1,10 @@
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Trophy, Star, Calendar, Users, Award, CheckCircle, Calculator } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CompetitionPage = () => {
   const [formData, setFormData] = useState({
@@ -92,10 +92,10 @@ const CompetitionPage = () => {
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                  Register Now
+                  <Link to="/competition/apply">Apply Now</Link>
                 </Button>
                 <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                  Learn More
+                  <Link to="/competition/admit-card">Download Admit Card</Link>
                 </Button>
               </div>
               
@@ -504,6 +504,32 @@ const CompetitionPage = () => {
                   <Button variant="outline" onClick={() => setFormSubmitted(false)}>Register Another Entry</Button>
                 </div>
               )}
+            </div>
+          </div>
+        </section>
+        
+        {/* Application CTA Section */}
+        <section className="py-16 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Participate?</h2>
+              <p className="text-lg md:text-xl mb-8">
+                Register for the Mental Maths Competition today and take your first step towards showcasing your mathematical talent on a competitive platform.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-6">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                  <Link to="/competition/apply" className="flex items-center">
+                    <span className="mr-2">Apply Now</span>
+                    <Calculator size={16} />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/20">
+                  <Link to="/competition/admit-card">Download Admit Card</Link>
+                </Button>
+              </div>
+              <p className="mt-4 text-sm text-white/80">
+                Last date for application: June 5, 2025
+              </p>
             </div>
           </div>
         </section>

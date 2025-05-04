@@ -46,7 +46,7 @@ const CompetitionPreviewSection = () => {
         
         <div className="text-center">
           <Button asChild size="lg" variant="outline" className="bg-white/10 border-white hover:bg-white/20">
-            <NavLink to="/competition">Register Now - Last Date June 5, 2025</NavLink>
+            <NavLink to="/competition/apply">Apply Now - Last Date June 5, 2025</NavLink>
           </Button>
         </div>
       </div>
