@@ -6,11 +6,29 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+// Define the valid button variant types
+type ButtonVariant = "default" | "outline" | "link" | "destructive" | "secondary" | "ghost";
+
+// Define the slide interface with proper typing
+interface SlideButton {
+  text: string;
+  link: string;
+  variant: ButtonVariant; // Use the correct type
+}
+
+interface Slide {
+  id: number;
+  backgroundImage: string;
+  title: string;
+  subtitle: string;
+  buttons: SlideButton[];
+}
+
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
 
-  const slides = [
+  const slides: Slide[] = [
     {
       id: 1,
       backgroundImage: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1600",
@@ -53,7 +71,7 @@ const HeroSection = () => {
     return () => clearInterval(timer);
   }, [autoplay, slides.length]);
 
-  const handleSlideChange = (index) => {
+  const handleSlideChange = (index: number) => {
     setCurrent(index);
     setAutoplay(false); // Pause autoplay when manually changing slides
     // Resume autoplay after 10 seconds of inactivity
@@ -94,7 +112,7 @@ const HeroSection = () => {
                           key={btnIndex}
                           asChild 
                           size="lg" 
-                          variant={button.variant}
+                          variant={button.variant} // Now properly typed
                           className={`text-base ${button.variant === "outline" ? "bg-white/10 border-white hover:bg-white/20" : "hover-scale"}`}
                         >
                           <NavLink to={button.link}>{button.text}</NavLink>
