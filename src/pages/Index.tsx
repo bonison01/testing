@@ -1,5 +1,6 @@
 
 import HeroSection from "@/components/home/HeroSection";
+import AchievementsSection from "@/components/home/AchievementsSection";
 import VerticalsSection from "@/components/home/VerticalsSection";
 import AboutPreviewSection from "@/components/home/AboutPreviewSection";
 import CompetitionPreviewSection from "@/components/home/CompetitionPreviewSection";
@@ -13,6 +14,7 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow flex flex-col">
         <HeroSection />
+        <AchievementsSection />
         <div className="container mx-auto px-6">
           <VerticalsSection />
           <CompetitionPreviewSection />
