@@ -3,12 +3,69 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { NavLink } from "react-router-dom";
 import { CalendarDays, Trophy, Flag } from "lucide-react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Event {
+  id: string;
+  title: string;
+  description: string;
+  event_date: string;
+  location: string;
+  image_url?: string;
+  is_featured: boolean;
+}
 
 const UpcomingEventsSection = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('events')
+          .select('*')
+          .eq('is_featured', true)
+          .order('event_date', { ascending: true })
+          .limit(1);
+          
+        if (error) {
+          console.error("Error fetching events:", error);
+        } else if (data && data.length > 0) {
+          setEvents(data);
+        } else {
+          // If no featured events, fall back to default content
+          setEvents([]);
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchEvents();
+  }, []);
+  
+  // Default event for fallback or while loading
+  const defaultEvent = {
+    id: "default",
+    title: "June Education Competition",
+    description: "Join our prestigious education competition with $50,000 in prizes and connect with industry leaders. Open to students in grades 4-6 and 11-12.",
+    event_date: "2025-06-15T00:00:00",
+    location: "Virtual Event",
+    is_featured: true
+  };
+  
   // Calculate the countdown time for competition
-  const competitionDate = new Date('June 15, 2025 00:00:00');
+  const competitionDate = new Date(events[0]?.event_date || 'June 15, 2025 00:00:00');
   const now = new Date();
   const daysLeft = Math.ceil((competitionDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  
+  // Use featured event from DB or fallback to default
+  const featuredEvent = events.length > 0 ? events[0] : defaultEvent;
   
   return (
     <section className="bg-white py-12 md:py-16">
@@ -42,11 +99,17 @@ const UpcomingEventsSection = () => {
                 
                 <div className="flex items-center mb-3">
                   <CalendarDays className="w-5 h-5 mr-2" />
-                  <span className="text-sm font-medium">June 15, 2025</span>
+                  <span className="text-sm font-medium">
+                    {new Date(featuredEvent.event_date).toLocaleDateString(undefined, { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </span>
                 </div>
                 
-                <h3 className="text-2xl md:text-3xl font-bold mb-4">June Education Competition</h3>
-                <p className="mb-6">Join our prestigious education competition with $50,000 in prizes and connect with industry leaders. Open to students in grades 4-6 and 11-12.</p>
+                <h3 className="text-2xl md:text-3xl font-bold mb-4">{featuredEvent.title}</h3>
+                <p className="mb-6">{featuredEvent.description}</p>
                 
                 <div className="flex items-center mb-6">
                   <Trophy className="w-5 h-5 mr-2" />
@@ -70,15 +133,21 @@ const UpcomingEventsSection = () => {
           <div className="bg-gray-50 rounded-xl shadow-sm overflow-hidden border border-gray-100">
             <div className="relative h-48 overflow-hidden">
               <img 
-                src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800" 
-                alt="June Education Competition" 
+                src={featuredEvent.image_url || "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800"} 
+                alt={featuredEvent.title} 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div className="absolute bottom-4 left-4 text-white">
                 <div className="flex items-center">
                   <CalendarDays className="w-4 h-4 mr-1" />
-                  <span className="text-sm">June 15, 2025</span>
+                  <span className="text-sm">
+                    {new Date(featuredEvent.event_date).toLocaleDateString(undefined, { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </span>
                 </div>
               </div>
             </div>
@@ -103,7 +172,9 @@ const UpcomingEventsSection = () => {
                   </div>
                   <div>
                     <h4 className="font-medium">Schedule</h4>
-                    <p className="text-sm text-gray-600">Registration closes June 10, competition on June 15</p>
+                    <p className="text-sm text-gray-600">
+                      Registration closes {new Date(featuredEvent.event_date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})}
+                    </p>
                   </div>
                 </div>
                 

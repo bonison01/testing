@@ -66,6 +66,11 @@ const Footer = () => {
                   Contact Us
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/auth" className="text-gray-400 hover:text-white transition-colors">
+                  Admin Login
+                </NavLink>
+              </li>
             </ul>
           </div>
           
