@@ -68,7 +68,7 @@ const Footer = () => {
               </li>
               <li>
                 <NavLink to="/auth" className="text-gray-400 hover:text-white transition-colors">
-                  Admin Login
+                  Login / Dashboard
                 </NavLink>
               </li>
             </ul>

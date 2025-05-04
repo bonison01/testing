@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -36,19 +37,10 @@ const AdminPage = () => {
         return;
       }
       
-      // Then check if user is admin once profile is loaded
-      if (!isLoading && !isAdmin) {
-        toast({
-          title: "Access Denied",
-          description: "You don't have admin privileges.",
-          variant: "destructive",
-        });
-        navigate("/");
-        return;
-      }
+      // Removed the isAdmin check to allow any authenticated user
       
       // If authentication checks passed, load data
-      if (!isLoading && isAdmin) {
+      if (!isLoading && session) {
         setLoading(true);
         
         try {
@@ -88,7 +80,7 @@ const AdminPage = () => {
     };
     
     loadData();
-  }, [isLoading, isAdmin, session, navigate, toast]);
+  }, [isLoading, session, navigate, toast]);
   
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -108,8 +100,8 @@ const AdminPage = () => {
     );
   }
   
-  // Redirect is handled in the useEffect
-  if (!isAdmin || !session) {
+  // Only redirect if not authenticated (removed isAdmin check)
+  if (!session) {
     return null;
   }
 
@@ -117,7 +109,9 @@ const AdminPage = () => {
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-2xl font-bold">
+            {isAdmin ? "Admin Dashboard" : "Dashboard"}
+          </h1>
           <Button variant="outline" onClick={handleSignOut}>Sign Out</Button>
         </div>
         
@@ -130,9 +124,12 @@ const AdminPage = () => {
           <TabsContent value="events" className="bg-white p-4 rounded-lg shadow">
             <div className="flex justify-between mb-4">
               <h2 className="text-xl font-semibold">Events</h2>
-              <Button size="sm" onClick={() => navigate("/admin/events/new")}>
-                Create New Event
-              </Button>
+              {/* Only show create button for admin users */}
+              {isAdmin && (
+                <Button size="sm" onClick={() => navigate("/admin/events/new")}>
+                  Create New Event
+                </Button>
+              )}
             </div>
             
             <div className="border rounded-md">
@@ -143,7 +140,7 @@ const AdminPage = () => {
                     <TableHead>Date</TableHead>
                     <TableHead>Location</TableHead>
                     <TableHead>Featured</TableHead>
-                    <TableHead>Actions</TableHead>
+                    {isAdmin && <TableHead>Actions</TableHead>}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -156,23 +153,25 @@ const AdminPage = () => {
                         </TableCell>
                         <TableCell>{event.location}</TableCell>
                         <TableCell>{event.is_featured ? "Yes" : "No"}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <Button 
-                              variant="outline" 
-                              size="sm"
-                              onClick={() => navigate(`/admin/events/${event.id}`)}
-                            >
-                              Edit
-                            </Button>
-                          </div>
-                        </TableCell>
+                        {isAdmin && (
+                          <TableCell>
+                            <div className="flex gap-2">
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => navigate(`/admin/events/${event.id}`)}
+                              >
+                                Edit
+                              </Button>
+                            </div>
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={5} className="text-center py-4 text-gray-500">
-                        No events found. Create your first event!
+                      <TableCell colSpan={isAdmin ? 5 : 4} className="text-center py-4 text-gray-500">
+                        No events found. {isAdmin && "Create your first event!"}
                       </TableCell>
                     </TableRow>
                   )}
