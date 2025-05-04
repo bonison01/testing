@@ -5,16 +5,7 @@ import { NavLink } from "react-router-dom";
 import { CalendarDays, Trophy, Flag } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  event_date: string;
-  location: string;
-  image_url?: string;
-  is_featured: boolean;
-}
+import { Event } from "@/types/database";
 
 const UpcomingEventsSection = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -24,17 +15,14 @@ const UpcomingEventsSection = () => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
-        const { data, error } = await supabase
-          .from('events')
-          .select('*')
-          .eq('is_featured', true)
-          .order('event_date', { ascending: true })
-          .limit(1);
-          
+        
+        // Use raw SQL query instead of from() to handle tables that might not be reflected in TypeScript types yet
+        const { data, error } = await supabase.rpc('get_featured_events');
+        
         if (error) {
           console.error("Error fetching events:", error);
         } else if (data && data.length > 0) {
-          setEvents(data);
+          setEvents(data as Event[]);
         } else {
           // If no featured events, fall back to default content
           setEvents([]);
@@ -56,7 +44,9 @@ const UpcomingEventsSection = () => {
     description: "Join our prestigious education competition with $50,000 in prizes and connect with industry leaders. Open to students in grades 4-6 and 11-12.",
     event_date: "2025-06-15T00:00:00",
     location: "Virtual Event",
-    is_featured: true
+    is_featured: true,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   };
   
   // Calculate the countdown time for competition

@@ -13,25 +13,7 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  event_date: string;
-  location: string;
-  is_featured: boolean;
-}
-
-interface Registration {
-  id: string;
-  full_name: string;
-  email: string;
-  phone: string;
-  organization: string;
-  event_id: string;
-  created_at: string;
-}
+import { Event, Registration } from "@/types/database";
 
 const AdminPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -85,11 +67,8 @@ const AdminPage = () => {
     const fetchData = async () => {
       setLoading(true);
       
-      // Fetch events
-      const { data: eventsData, error: eventsError } = await supabase
-        .from('events')
-        .select('*')
-        .order('event_date', { ascending: true });
+      // Fetch events using RPC to avoid TypeScript issues with new tables
+      const { data: eventsData, error: eventsError } = await supabase.rpc('get_all_events');
       
       if (eventsError) {
         console.error("Error fetching events:", eventsError);
@@ -99,14 +78,11 @@ const AdminPage = () => {
           variant: "destructive",
         });
       } else if (eventsData) {
-        setEvents(eventsData);
+        setEvents(eventsData as Event[]);
       }
       
-      // Fetch registrations
-      const { data: registrationsData, error: registrationsError } = await supabase
-        .from('registrations')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // Fetch registrations using RPC to avoid TypeScript issues with new tables
+      const { data: registrationsData, error: registrationsError } = await supabase.rpc('get_all_registrations');
       
       if (registrationsError) {
         console.error("Error fetching registrations:", registrationsError);
@@ -116,7 +92,7 @@ const AdminPage = () => {
           variant: "destructive",
         });
       } else if (registrationsData) {
-        setRegistrations(registrationsData);
+        setRegistrations(registrationsData as Registration[]);
       }
       
       setLoading(false);
