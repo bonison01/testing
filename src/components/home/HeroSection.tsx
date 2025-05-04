@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Define the valid button variant types
 type ButtonVariant = "default" | "outline" | "link" | "destructive" | "secondary" | "ghost";
@@ -90,7 +89,7 @@ const HeroSection = () => {
   return (
     <div className="relative bg-gradient-to-r from-green-700 to-emerald-700 text-white pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
       {/* Carousel for hero banners */}
-      <Carousel className="w-full" defaultIndex={current} onSelect={(index) => setCurrent(index)}>
+      <Carousel className="w-full" onSelect={(api) => api && setCurrent(api.selectedScrollSnap())}>
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={slide.id} className="w-full">
