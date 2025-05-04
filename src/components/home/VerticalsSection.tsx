@@ -38,28 +38,28 @@ const VerticalsSection = () => {
       description: "Fast, reliable delivery services for your everyday needs, connecting local businesses to customers.",
       icon: <Truck size={24} />,
       color: "#4F46E5",
-      link: "/services#delivery",
+      link: "/delivery",
     },
     {
       title: "Mateng Discovery",
       description: "Explore and discover hidden gems in your local community, from restaurants to services.",
       icon: <Map size={24} />,
       color: "#0EA5E9",
-      link: "/services#discovery",
+      link: "/discovery",
     },
     {
       title: "Mateng Education",
       description: "Empowering communities through knowledge sharing and skill development programs.",
       icon: <GraduationCap size={24} />,
       color: "#10B981",
-      link: "/services#education",
+      link: "/education",
     },
     {
       title: "Mateng Marketplace",
       description: "A platform connecting local vendors, service providers, and customers in a vibrant ecosystem.",
       icon: <ShoppingBag size={24} />,
       color: "#8B5CF6",
-      link: "/services#marketplace",
+      link: "/marketplace",
     },
   ];
 
