@@ -1,6 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Gallery, Image } from "lucide-react";
+import { GalleryHorizontal, Image } from "lucide-react";
 
 const AchievementsSection = () => {
   const achievements = [
@@ -9,7 +9,7 @@ const AchievementsSection = () => {
       title: "500+ Successful Deliveries",
       description: "Delivered packages across communities with our hyperlocal delivery network",
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800",
-      icon: <Gallery className="h-8 w-8 text-emerald-500" />
+      icon: <GalleryHorizontal className="h-8 w-8 text-emerald-500" />
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const AchievementsSection = () => {
       title: "Community Marketplace",
       description: "Connected 50+ local artisans with customers in the community",
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800",
-      icon: <Gallery className="h-8 w-8 text-emerald-500" />
+      icon: <GalleryHorizontal className="h-8 w-8 text-emerald-500" />
     },
   ];
 
