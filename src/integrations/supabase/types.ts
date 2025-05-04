@@ -83,6 +83,89 @@ export type Database = {
           },
         ]
       }
+      events: {
+        Row: {
+          created_at: string
+          description: string
+          event_date: string
+          id: string
+          image_url: string | null
+          is_featured: boolean
+          location: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          event_date: string
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          location: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          event_date?: string
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          location?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      form_fields: {
+        Row: {
+          created_at: string
+          display_order: number
+          event_id: string
+          field_label: string
+          field_name: string
+          field_options: Json | null
+          field_type: string
+          id: string
+          is_required: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          event_id: string
+          field_label: string
+          field_name: string
+          field_options?: Json | null
+          field_type: string
+          id?: string
+          is_required?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          event_id?: string
+          field_label?: string
+          field_name?: string
+          field_options?: Json | null
+          field_type?: string
+          id?: string
+          is_required?: boolean
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_fields_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -106,6 +189,53 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      registrations: {
+        Row: {
+          additional_info: Json | null
+          created_at: string
+          email: string
+          event_id: string
+          full_name: string
+          id: string
+          organization: string | null
+          phone: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          additional_info?: Json | null
+          created_at?: string
+          email: string
+          event_id: string
+          full_name: string
+          id?: string
+          organization?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          additional_info?: Json | null
+          created_at?: string
+          email?: string
+          event_id?: string
+          full_name?: string
+          id?: string
+          organization?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       team_members: {
         Row: {
@@ -162,7 +292,49 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_all_events: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          description: string
+          event_date: string
+          id: string
+          image_url: string | null
+          is_featured: boolean
+          location: string
+          title: string
+          updated_at: string
+        }[]
+      }
+      get_all_registrations: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          additional_info: Json | null
+          created_at: string
+          email: string
+          event_id: string
+          full_name: string
+          id: string
+          organization: string | null
+          phone: string | null
+          updated_at: string
+          user_id: string | null
+        }[]
+      }
+      get_featured_events: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          description: string
+          event_date: string
+          id: string
+          image_url: string | null
+          is_featured: boolean
+          location: string
+          title: string
+          updated_at: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

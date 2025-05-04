@@ -16,7 +16,7 @@ const UpcomingEventsSection = () => {
       try {
         setLoading(true);
         
-        // Use raw SQL query instead of from() to handle tables that might not be reflected in TypeScript types yet
+        // Use RPC to get featured events
         const { data, error } = await supabase.rpc('get_featured_events');
         
         if (error) {
@@ -38,7 +38,7 @@ const UpcomingEventsSection = () => {
   }, []);
   
   // Default event for fallback or while loading
-  const defaultEvent = {
+  const defaultEvent: Event = {
     id: "default",
     title: "June Education Competition",
     description: "Join our prestigious education competition with $50,000 in prizes and connect with industry leaders. Open to students in grades 4-6 and 11-12.",
@@ -46,7 +46,8 @@ const UpcomingEventsSection = () => {
     location: "Virtual Event",
     is_featured: true,
     created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
+    updated_at: new Date().toISOString(),
+    image_url: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800"
   };
   
   // Calculate the countdown time for competition
