@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/components/AuthContext";
 
 const AuthPage = () => {
   const [email, setEmail] = useState("");
@@ -16,31 +17,14 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { session, refreshProfile } = useAuth();
   
   // Check if user is already logged in
   useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
-        navigate("/admin");
-      }
-    };
-    
-    checkSession();
-    
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (session) {
-          navigate("/admin");
-        }
-      }
-    );
-    
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [navigate]);
+    if (session) {
+      navigate("/admin");
+    }
+  }, [navigate, session]);
   
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,6 +55,11 @@ const AuthPage = () => {
         title: "Sign up successful!",
         description: "Please check your email for verification instructions.",
       });
+      
+      // Wait a moment and then refresh the profile to ensure it's created
+      setTimeout(() => {
+        refreshProfile();
+      }, 1000);
       
     } catch (error: any) {
       toast({
@@ -108,7 +97,10 @@ const AuthPage = () => {
         description: "Welcome back!",
       });
       
-      navigate("/admin");
+      // Wait a moment before redirecting to ensure profile is loaded
+      setTimeout(() => {
+        navigate("/admin");
+      }, 500);
     } catch (error: any) {
       toast({
         title: "An error occurred",
