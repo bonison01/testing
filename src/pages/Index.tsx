@@ -11,11 +11,13 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col pt-16">
       <Navbar />
       <main className="flex-grow flex flex-col">
         <HeroSection />
-        <UpcomingEventsSection />
+        <div className="-mt-6">
+          <UpcomingEventsSection />
+        </div>
         <AchievementsSection />
         <div className="container mx-auto px-6">
           <VerticalsSection />
