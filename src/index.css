@@ -94,4 +94,18 @@
   .mateng-section {
     @apply py-16 md:py-24;
   }
+  
+  /* Add CSS for the moving header */
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .marquee {
+    animation: marquee 20s linear infinite;
+  }
 }
