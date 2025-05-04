@@ -2,7 +2,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Check, Package, Clock, Shield, Truck } from "lucide-react";
+import { Check, Package, Clock, Shield, Truck, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const MatengDeliveryPage = () => {
@@ -19,9 +19,16 @@ const MatengDeliveryPage = () => {
                 Fast, reliable, and affordable delivery services for your everyday needs.
                 Connecting local businesses to customers with our innovative solutions.
               </p>
-              <Button asChild size="lg" className="bg-white text-green-700 hover:bg-gray-100">
-                <a href="#pricing">View Pricing</a>
-              </Button>
+              <div className="flex flex-wrap gap-4">
+                <Button asChild size="lg" className="bg-white text-green-700 hover:bg-gray-100">
+                  <a href="#pricing">View Pricing</a>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  <a href="https://delivery.matenghub.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    Go to Delivery Platform <ExternalLink className="ml-2" size={18} />
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -282,8 +289,10 @@ const MatengDeliveryPage = () => {
               <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
                 Learn More
               </Button>
-              <Button variant="secondary" size="lg" className="text-mateng-delivery">
-                Get Started
+              <Button asChild variant="secondary" size="lg" className="text-mateng-delivery">
+                <a href="https://delivery.matenghub.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                  Go to Delivery Platform <ExternalLink className="ml-2" size={18} />
+                </a>
               </Button>
             </div>
           </div>

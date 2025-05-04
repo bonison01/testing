@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ShoppingBag, Star, Tag, Truck, Shield, CreditCard, Filter, Search } from "lucide-react";
+import { ShoppingBag, Star, Tag, Truck, Shield, CreditCard, Filter, Search, ExternalLink } from "lucide-react";
 
 const MatengMarketplacePage = () => {
   // Sample featured products
@@ -106,9 +106,16 @@ const MatengMarketplacePage = () => {
                 A vibrant digital marketplace connecting local vendors, artisans, and service providers with community members.
                 Shop local, support small businesses, and discover unique products.
               </p>
-              <Button asChild size="lg" className="bg-white text-purple-700 hover:bg-gray-100">
-                <a href="#products">Start Shopping</a>
-              </Button>
+              <div className="flex flex-wrap gap-4">
+                <Button asChild size="lg" className="bg-white text-purple-700 hover:bg-gray-100">
+                  <a href="#products">Start Shopping</a>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  <a href="https://marketplace.matenghub.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    Go to Marketplace <ExternalLink className="ml-2" size={18} />
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -314,8 +321,10 @@ const MatengMarketplacePage = () => {
               <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
                 Learn More
               </Button>
-              <Button variant="secondary" size="lg" className="text-mateng-marketplace">
-                Shop Now
+              <Button asChild variant="secondary" size="lg" className="text-mateng-marketplace">
+                <a href="https://marketplace.matenghub.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                  Go to Marketplace <ExternalLink className="ml-2" size={18} />
+                </a>
               </Button>
             </div>
           </div>
