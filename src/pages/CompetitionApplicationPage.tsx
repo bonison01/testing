@@ -40,7 +40,7 @@ import {
   FileText, 
   Upload, 
   Calendar, 
-  Cash, 
+  IndianRupee, 
   Phone, 
   School, 
   Check, 
@@ -538,7 +538,7 @@ const CompetitionApplicationPage = () => {
               {/* Payment Section */}
               <div className="bg-white p-6 rounded-lg shadow-sm border">
                 <h2 className="text-xl font-semibold mb-4 flex items-center">
-                  <Cash size={20} className="mr-2" />
+                  <IndianRupee size={20} className="mr-2" />
                   Payment Details
                 </h2>
                 

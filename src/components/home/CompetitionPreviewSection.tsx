@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
-import { Calculator } from "lucide-react";
+import { Calculator, IndianRupee } from "lucide-react";
 
 const CompetitionPreviewSection = () => {
   return (
