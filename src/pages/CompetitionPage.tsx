@@ -3,8 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Trophy, Star, Calendar, Users, Award, CheckCircle } from "lucide-react";
-import { useState } from "react";
+import { Trophy, Star, Calendar, Users, Award, CheckCircle, Calculator } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const CompetitionPage = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,40 @@ const CompetitionPage = () => {
   });
   
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+  
+  // Competition important dates
+  const competitionDate = new Date("June 15, 2025");
+  const registrationDeadline = new Date("June 5, 2025");
+  const admitCardDate = new Date("June 10, 2025");
+  const awardCeremonyDate = new Date("June 22, 2025");
+  
+  // Calculate countdown to competition date
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const difference = competitionDate.getTime() - now.getTime();
+      
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        
+        setCountdown({ days, hours, minutes, seconds });
+      }
+    };
+    
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+    
+    return () => clearInterval(timer);
+  }, []);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -27,6 +61,14 @@ const CompetitionPage = () => {
     // Here you would typically send the data to your backend
     console.log("Form submitted:", formData);
     setFormSubmitted(true);
+  };
+  
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
   };
   
   return (
@@ -41,12 +83,12 @@ const CompetitionPage = () => {
               <div className="inline-block mb-6">
                 <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full flex items-center">
                   <Calendar size={20} className="mr-2" /> 
-                  June 2025
+                  {formatDate(competitionDate)}
                 </div>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Mateng Community Competition</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">Mathematics Competition for Classes 4 & 5</h1>
               <p className="text-xl mb-8">
-                Join our exciting competition, showcase your talents, and win amazing prizes while making a positive impact in your community.
+                Join our exciting mathematics competition, showcase your talent, and win amazing prizes while enhancing your analytical skills.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90">
@@ -63,25 +105,25 @@ const CompetitionPage = () => {
                 <div className="grid grid-cols-4 gap-4">
                   <div className="flex flex-col items-center">
                     <div className="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-lg flex items-center justify-center mb-2">
-                      <span className="text-3xl font-bold">89</span>
+                      <span className="text-3xl font-bold">{countdown.days}</span>
                     </div>
                     <span className="text-sm">Days</span>
                   </div>
                   <div className="flex flex-col items-center">
                     <div className="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-lg flex items-center justify-center mb-2">
-                      <span className="text-3xl font-bold">12</span>
+                      <span className="text-3xl font-bold">{countdown.hours}</span>
                     </div>
                     <span className="text-sm">Hours</span>
                   </div>
                   <div className="flex flex-col items-center">
                     <div className="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-lg flex items-center justify-center mb-2">
-                      <span className="text-3xl font-bold">45</span>
+                      <span className="text-3xl font-bold">{countdown.minutes}</span>
                     </div>
                     <span className="text-sm">Minutes</span>
                   </div>
                   <div className="flex flex-col items-center">
                     <div className="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-lg flex items-center justify-center mb-2">
-                      <span className="text-3xl font-bold">30</span>
+                      <span className="text-3xl font-bold">{countdown.seconds}</span>
                     </div>
                     <span className="text-sm">Seconds</span>
                   </div>
@@ -97,7 +139,7 @@ const CompetitionPage = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="section-title">Competition Details</h2>
               <p className="section-subtitle">
-                Everything you need to know about the Mateng Community Competition
+                Everything you need to know about the Mathematics Competition
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
@@ -105,11 +147,12 @@ const CompetitionPage = () => {
                   <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                     <Calendar size={24} className="text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Event Timeline</h3>
+                  <h3 className="text-xl font-bold mb-2">Important Dates</h3>
                   <p className="text-gray-600">
-                    <strong>Registration:</strong> April - May 2025<br />
-                    <strong>Competition:</strong> June 10-20, 2025<br />
-                    <strong>Award Ceremony:</strong> June 30, 2025
+                    <strong>Last Date for Registration:</strong> {formatDate(registrationDeadline)}<br />
+                    <strong>Admit Card Issue:</strong> {formatDate(admitCardDate)}<br />
+                    <strong>Competition Date:</strong> {formatDate(competitionDate)}<br />
+                    <strong>Award Ceremony:</strong> {formatDate(awardCeremonyDate)}
                   </p>
                 </div>
                 
@@ -119,10 +162,10 @@ const CompetitionPage = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-2">Prizes</h3>
                   <p className="text-gray-600">
-                    <strong>1st Prize:</strong> $25,000<br />
-                    <strong>2nd Prize:</strong> $15,000<br />
-                    <strong>3rd Prize:</strong> $10,000<br />
-                    <strong>Special Categories:</strong> $2,500 each
+                    <strong>1st Prize:</strong> ₹3,000 + Certificate + Momento + T-shirt<br />
+                    <strong>2nd Prize:</strong> ₹2,000 + Certificate + Momento + T-shirt<br />
+                    <strong>3rd Prize:</strong> ₹1,000 + Certificate + Momento + T-shirt<br />
+                    <strong>Consolation (10):</strong> ₹500 + Certificate + T-shirt
                   </p>
                 </div>
                 
@@ -132,7 +175,7 @@ const CompetitionPage = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-2">Eligibility</h3>
                   <p className="text-gray-600">
-                    Open to individuals and teams from communities where Mateng operates. Participants must be 18+ or have guardian consent.
+                    Open to students currently in Class 4 and Class 5. Participants must register under the correct category based on their current class.
                   </p>
                 </div>
               </div>
@@ -145,79 +188,135 @@ const CompetitionPage = () => {
           <div className="container mx-auto px-6">
             <h2 className="section-title">Competition Categories</h2>
             <p className="section-subtitle">
-              Choose the category that best showcases your talents and interests
+              Select your category based on your current class
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-              <div className="border border-gray-200 bg-white rounded-lg p-6 hover-card">
-                <div className="w-12 h-12 bg-mateng-delivery/10 rounded-full flex items-center justify-center mb-4">
-                  <Star size={24} className="text-mateng-delivery" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
+              <div className="border border-gray-200 bg-white rounded-lg p-8 hover-card">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Calculator size={28} className="text-blue-600" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Innovation Challenge</h3>
-                <p className="text-gray-600 mb-4">
-                  Present innovative solutions to common community challenges related to delivery and logistics.
+                <h3 className="text-2xl font-bold mb-4 text-center">Class 4 Category</h3>
+                <p className="text-gray-600 mb-6 text-center">
+                  For students currently enrolled in Class 4
                 </p>
-                <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
-                  <li>Problem-solving focus</li>
-                  <li>Technology-driven solutions</li>
-                  <li>Scalable ideas</li>
-                </ul>
+                <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                  <h4 className="font-semibold mb-2 text-gray-800">Topics Covered:</h4>
+                  <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
+                    <li>Basic arithmetic operations</li>
+                    <li>Fractions and decimals</li>
+                    <li>Measurement and geometry</li>
+                    <li>Patterns and basic problem solving</li>
+                    <li>Logical reasoning</li>
+                  </ul>
+                </div>
+                <div className="text-center">
+                  <Button size="sm" variant="outline" className="bg-white hover:bg-blue-50">
+                    View Sample Questions
+                  </Button>
+                </div>
               </div>
               
-              <div className="border border-gray-200 bg-white rounded-lg p-6 hover-card">
-                <div className="w-12 h-12 bg-mateng-discovery/10 rounded-full flex items-center justify-center mb-4">
-                  <Star size={24} className="text-mateng-discovery" />
+              <div className="border border-gray-200 bg-white rounded-lg p-8 hover-card">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Calculator size={28} className="text-purple-600" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Community Spotlight</h3>
-                <p className="text-gray-600 mb-4">
-                  Showcase what makes your community special and how it can be better discovered by others.
+                <h3 className="text-2xl font-bold mb-4 text-center">Class 5 Category</h3>
+                <p className="text-gray-600 mb-6 text-center">
+                  For students currently enrolled in Class 5
                 </p>
-                <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
-                  <li>Creative presentations</li>
-                  <li>Local highlights</li>
-                  <li>Hidden gem features</li>
-                </ul>
+                <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                  <h4 className="font-semibold mb-2 text-gray-800">Topics Covered:</h4>
+                  <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
+                    <li>Advanced arithmetic operations</li>
+                    <li>Complex fractions and decimals</li>
+                    <li>Geometry and measurement conversions</li>
+                    <li>Data handling and interpretation</li>
+                    <li>Advanced problem solving</li>
+                  </ul>
+                </div>
+                <div className="text-center">
+                  <Button size="sm" variant="outline" className="bg-white hover:bg-purple-50">
+                    View Sample Questions
+                  </Button>
+                </div>
               </div>
-              
-              <div className="border border-gray-200 bg-white rounded-lg p-6 hover-card">
-                <div className="w-12 h-12 bg-mateng-education/10 rounded-full flex items-center justify-center mb-4">
-                  <Star size={24} className="text-mateng-education" />
+            </div>
+          </div>
+        </section>
+        
+        {/* Award Ceremony & Special Program */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <h2 className="section-title">Award Ceremony & Special Program</h2>
+            <p className="section-subtitle mb-12">
+              Join us on {formatDate(awardCeremonyDate)} for the award ceremony and special sessions
+            </p>
+            
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <div className="p-8">
+                  <div className="flex items-center mb-6">
+                    <Trophy size={24} className="text-yellow-500 mr-3" />
+                    <h3 className="text-2xl font-bold">Award Distribution</h3>
+                  </div>
+                  <p className="text-gray-600 mb-6">
+                    Winners will be awarded with cash prizes, certificates, mementos and t-shirts in a grand ceremony. All participants will receive certificates of participation.
+                  </p>
+                  <ul className="space-y-3 text-gray-600">
+                    <li className="flex items-start">
+                      <Award className="text-primary mr-3 mt-1 shrink-0" size={18} />
+                      <span>Recognition for outstanding mathematical talent</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Award className="text-primary mr-3 mt-1 shrink-0" size={18} />
+                      <span>Prizes presented by distinguished guests</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Award className="text-primary mr-3 mt-1 shrink-0" size={18} />
+                      <span>Media coverage of the event</span>
+                    </li>
+                  </ul>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Educational Initiative</h3>
-                <p className="text-gray-600 mb-4">
-                  Develop educational programs or resources that address specific needs in your community.
-                </p>
-                <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
-                  <li>Skill-building focus</li>
-                  <li>Knowledge sharing</li>
-                  <li>Accessibility emphasis</li>
-                </ul>
-              </div>
-              
-              <div className="border border-gray-200 bg-white rounded-lg p-6 hover-card">
-                <div className="w-12 h-12 bg-mateng-marketplace/10 rounded-full flex items-center justify-center mb-4">
-                  <Star size={24} className="text-mateng-marketplace" />
+                
+                <div className="bg-gray-50 p-8">
+                  <div className="flex items-center mb-6">
+                    <Star size={24} className="text-blue-500 mr-3" />
+                    <h3 className="text-2xl font-bold">Special Program Session</h3>
+                  </div>
+                  <p className="text-gray-600 mb-6">
+                    Attend our special program focusing on career paths and technology evolution in this generation. Learn from experts about future opportunities.
+                  </p>
+                  <ul className="space-y-3 text-gray-600">
+                    <li className="flex items-start">
+                      <CheckCircle className="text-green-500 mr-3 mt-1 shrink-0" size={18} />
+                      <span>Insights on modern career opportunities in STEM</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="text-green-500 mr-3 mt-1 shrink-0" size={18} />
+                      <span>Understanding technology evolution and its impact</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="text-green-500 mr-3 mt-1 shrink-0" size={18} />
+                      <span>Guidance from industry experts and educators</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="text-green-500 mr-3 mt-1 shrink-0" size={18} />
+                      <span>Networking opportunities with mentors</span>
+                    </li>
+                  </ul>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Marketplace Vision</h3>
-                <p className="text-gray-600 mb-4">
-                  Present ideas for enhancing local commerce and connecting buyers with sellers in new ways.
-                </p>
-                <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
-                  <li>Business model innovations</li>
-                  <li>Local economy focus</li>
-                  <li>Sustainability considerations</li>
-                </ul>
               </div>
             </div>
           </div>
         </section>
         
         {/* Judges and Mentors */}
-        <section className="py-16">
+        <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
             <h2 className="section-title">Our Distinguished Judges</h2>
             <p className="section-subtitle">
-              Meet the industry leaders who will evaluate competition entries
+              Meet the mathematics experts who will evaluate competition entries
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
@@ -229,9 +328,9 @@ const CompetitionPage = () => {
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-1">Dr. Robert Chen</h3>
-                  <p className="text-primary font-medium mb-3">Industry Expert & Innovator</p>
+                  <p className="text-primary font-medium mb-3">Mathematics Professor</p>
                   <p className="text-gray-600 text-sm">
-                    Former CTO of a leading tech company with expertise in community-building technologies.
+                    Expert in mathematical pedagogy with 15+ years of experience in education.
                   </p>
                 </div>
               </div>
@@ -244,9 +343,9 @@ const CompetitionPage = () => {
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-1">Prof. Lisa Johnson</h3>
-                  <p className="text-primary font-medium mb-3">Academic & Researcher</p>
+                  <p className="text-primary font-medium mb-3">Education Specialist</p>
                   <p className="text-gray-600 text-sm">
-                    Leading researcher in community economics and sustainable business models.
+                    Specializes in primary education mathematics curriculum development.
                   </p>
                 </div>
               </div>
@@ -259,9 +358,9 @@ const CompetitionPage = () => {
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-1">Mark Williams</h3>
-                  <p className="text-primary font-medium mb-3">Business Leader</p>
+                  <p className="text-primary font-medium mb-3">Mathematics Olympiad Coach</p>
                   <p className="text-gray-600 text-sm">
-                    Entrepreneur with multiple successful community-focused startups.
+                    Has coached multiple national mathematics olympiad winners.
                   </p>
                 </div>
               </div>
@@ -274,9 +373,9 @@ const CompetitionPage = () => {
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-1">Sarah Thompson</h3>
-                  <p className="text-primary font-medium mb-3">Community Advocate</p>
+                  <p className="text-primary font-medium mb-3">Educational Psychologist</p>
                   <p className="text-gray-600 text-sm">
-                    Renowned activist focused on community development and empowerment.
+                    Expert in cognitive development and mathematical learning processes.
                   </p>
                 </div>
               </div>
@@ -285,12 +384,12 @@ const CompetitionPage = () => {
         </section>
         
         {/* Registration Form */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16">
           <div className="container mx-auto px-6">
             <div className="max-w-3xl mx-auto">
               <h2 className="section-title">Register for the Competition</h2>
               <p className="section-subtitle">
-                Complete the form below to secure your spot in the Mateng Community Competition
+                Complete the form below to secure your spot in the Mathematics Competition
               </p>
               
               {!formSubmitted ? (
@@ -298,7 +397,7 @@ const CompetitionPage = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                        Full Name *
+                        Full Name of Student *
                       </label>
                       <input
                         type="text"
@@ -313,7 +412,7 @@ const CompetitionPage = () => {
                     
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email Address *
+                        Parent/Guardian Email Address *
                       </label>
                       <input
                         type="email"
@@ -330,12 +429,13 @@ const CompetitionPage = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                        Phone Number
+                        Contact Number *
                       </label>
                       <input
                         type="tel"
                         id="phone"
                         name="phone"
+                        required
                         value={formData.phone}
                         onChange={handleInputChange}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -344,7 +444,7 @@ const CompetitionPage = () => {
                     
                     <div>
                       <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-                        Competition Category *
+                        Class Category *
                       </label>
                       <select
                         id="category"
@@ -355,17 +455,15 @@ const CompetitionPage = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       >
                         <option value="">Select a category</option>
-                        <option value="innovation">Innovation Challenge</option>
-                        <option value="community">Community Spotlight</option>
-                        <option value="education">Educational Initiative</option>
-                        <option value="marketplace">Marketplace Vision</option>
+                        <option value="class-4">Class 4</option>
+                        <option value="class-5">Class 5</option>
                       </select>
                     </div>
                   </div>
                   
                   <div className="mb-6">
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Brief Description of Your Project Idea *
+                      School Name and Address *
                     </label>
                     <textarea
                       id="message"
@@ -375,7 +473,7 @@ const CompetitionPage = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      placeholder="Tell us briefly about your project idea..."
+                      placeholder="Please provide your school name and complete address..."
                     ></textarea>
                   </div>
                   
@@ -401,7 +499,7 @@ const CompetitionPage = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-green-600 mb-2">Registration Successful!</h3>
                   <p className="text-gray-600 mb-6">
-                    Thank you for registering for the Mateng Community Competition. We've sent a confirmation email with more details to your inbox.
+                    Thank you for registering for the Mathematics Competition. We've sent a confirmation email with more details to your inbox. Your admit card will be issued on {formatDate(admitCardDate)}.
                   </p>
                   <Button variant="outline" onClick={() => setFormSubmitted(false)}>Register Another Entry</Button>
                 </div>
@@ -411,7 +509,7 @@ const CompetitionPage = () => {
         </section>
         
         {/* FAQ Section */}
-        <section className="py-16">
+        <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
             <h2 className="section-title">Frequently Asked Questions</h2>
             <p className="section-subtitle">
@@ -425,7 +523,7 @@ const CompetitionPage = () => {
                     Who is eligible to participate in the competition?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    The competition is open to individuals and teams from communities where Mateng operates. Participants must be 18 years or older, or have guardian consent if under 18. Both professionals and amateurs are welcome to apply.
+                    The competition is open to students currently studying in Class 4 and Class 5. Participants must register under the correct category based on their current class.
                   </AccordionContent>
                 </AccordionItem>
                 
@@ -434,16 +532,16 @@ const CompetitionPage = () => {
                     Is there a registration fee?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    No, registration for the Mateng Community Competition is completely free. We believe in making this opportunity accessible to everyone in our communities.
+                    No, registration for the Mathematics Competition is completely free. We believe in making this opportunity accessible to all students.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-3">
                   <AccordionTrigger className="px-6 hover:bg-gray-50">
-                    Can I participate in more than one category?
+                    How will the competition be conducted?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    Yes, participants can submit entries to multiple categories. However, each submission must be a unique project idea tailored to the specific category requirements.
+                    The competition will be held in a written format with mathematical problems tailored to each class level. The exam will test conceptual understanding and problem-solving abilities rather than rote memorization.
                   </AccordionContent>
                 </AccordionItem>
                 
@@ -452,34 +550,34 @@ const CompetitionPage = () => {
                     How will the winners be selected?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    Entries will be evaluated by our panel of judges based on innovation, feasibility, community impact, and presentation quality. The judging process includes an initial screening, followed by finalist presentations and final deliberation.
+                    Winners will be selected based on their performance in the competition. The students with the highest scores in each category will be awarded the prizes. In case of a tie, additional criteria such as time taken to complete and problem-solving approach may be considered.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-5">
                   <AccordionTrigger className="px-6 hover:bg-gray-50">
-                    Will there be mentorship opportunities during the competition?
+                    When and how will I receive my admit card?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    Yes, all registered participants will have access to mentorship sessions with industry experts. These sessions will provide guidance on refining your ideas and preparing your final presentation.
+                    Admit cards will be issued on {formatDate(admitCardDate)} and will be sent to the email address provided during registration. The admit card must be printed and brought to the competition venue.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-6">
                   <AccordionTrigger className="px-6 hover:bg-gray-50">
-                    What happens after the competition?
+                    What should participants bring on the competition day?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    Beyond the prizes, winners and selected finalists may receive opportunities for further development support from Mateng. This could include business incubation, implementation partnerships, or integration with our platform.
+                    Participants should bring their admit card, school ID, stationery items (pencils, erasers, etc.). Calculators will not be allowed during the competition. All other necessary materials will be provided at the venue.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-7">
                   <AccordionTrigger className="px-6 hover:bg-gray-50">
-                    Do I need to have a fully developed product or solution?
+                    Will sample questions be provided for practice?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    No, you can submit ideas at various stages of development. We're looking for innovative concepts with potential, not necessarily fully implemented solutions. Your submission should include a clear plan for development and implementation.
+                    Yes, sample questions will be available for download after successful registration. These will help participants understand the format and difficulty level of the competition.
                   </AccordionContent>
                 </AccordionItem>
                 
