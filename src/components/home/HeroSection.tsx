@@ -25,6 +25,10 @@ interface Slide {
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
+  const [days, setDays] = useState(30);
+  const [hours, setHours] = useState(12);
+  const [minutes, setMinutes] = useState(45);
+  const [seconds, setSeconds] = useState(20);
 
   const slides: Slide[] = [
     {
@@ -79,6 +83,29 @@ const HeroSection = () => {
     return () => clearInterval(timer);
   }, [autoplay, slides.length]);
 
+  // Update countdown timer
+  useEffect(() => {
+    const countdownInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      } else if (minutes > 0) {
+        setMinutes(minutes - 1);
+        setSeconds(59);
+      } else if (hours > 0) {
+        setHours(hours - 1);
+        setMinutes(59);
+        setSeconds(59);
+      } else if (days > 0) {
+        setDays(days - 1);
+        setHours(23);
+        setMinutes(59);
+        setSeconds(59);
+      }
+    }, 1000);
+    
+    return () => clearInterval(countdownInterval);
+  }, [days, hours, minutes, seconds]);
+
   const handleSlideChange = (index: number) => {
     setCurrent(index);
     setAutoplay(false); // Pause autoplay when manually changing slides
@@ -104,10 +131,10 @@ const HeroSection = () => {
               </div>
               
               {/* Content - Only show the content for the current active slide */}
-              <div className={`container mx-auto px-6 relative z-10 min-h-[70vh] flex items-center justify-center ${current === index ? 'opacity-100' : 'opacity-0'}`}>
-                <div className="max-w-6xl mx-auto text-center">
-                  {/* Text content */}
-                  <div className={`w-full ${current === index ? 'animate-fade-in' : ''}`}>
+              {current === index && (
+                <div className="container mx-auto px-6 relative z-10 min-h-[70vh] flex items-center justify-center opacity-100 animate-fade-in">
+                  <div className="max-w-6xl mx-auto text-center">
+                    {/* Text content */}
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                       {slide.title}
                     </h1>
@@ -119,19 +146,19 @@ const HeroSection = () => {
                     {slide.id === 4 && (
                       <div className="grid grid-cols-4 gap-2 bg-black/30 p-5 rounded-lg mb-5 border border-white/20 shadow-inner max-w-md mx-auto">
                         <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">30</span>
+                          <span className="text-3xl font-bold">{days}</span>
                           <span className="text-sm font-medium">Days</span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">12</span>
+                          <span className="text-3xl font-bold">{hours}</span>
                           <span className="text-sm font-medium">Hours</span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">45</span>
+                          <span className="text-3xl font-bold">{minutes}</span>
                           <span className="text-sm font-medium">Minutes</span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">20</span>
+                          <span className="text-3xl font-bold">{seconds}</span>
                           <span className="text-sm font-medium">Seconds</span>
                         </div>
                       </div>
@@ -152,7 +179,7 @@ const HeroSection = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </CarouselItem>
           ))}
         </CarouselContent>
