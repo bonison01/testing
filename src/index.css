@@ -95,17 +95,19 @@
     @apply py-16 md:py-24;
   }
   
-  /* Improved CSS for the moving header with smooth transitions */
+  /* Updated CSS for the continuously moving header */
   @keyframes marquee {
     0% {
-      transform: translateX(100%);
+      transform: translateX(0);
     }
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-50%);
     }
   }
   
   .marquee {
-    animation: marquee 20s linear infinite;
+    display: flex;
+    animation: marquee 25s linear infinite;
+    width: max-content;
   }
 }

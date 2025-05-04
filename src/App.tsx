@@ -1,10 +1,9 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Phone } from "lucide-react";
 
 import Index from "./pages/Index";
@@ -21,34 +20,36 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const [position, setPosition] = useState(100);
+  const [animationKey, setAnimationKey] = useState(0);
   
-  // Animation effect for the sliding header
   useEffect(() => {
-    const animateText = () => {
-      setPosition((prevPosition) => {
-        // Reset position once it's off screen to the left
-        if (prevPosition < -100) return 100;
-        return prevPosition - 0.2;
-      });
-    };
+    // No animation control needed here as we're using CSS animation
+    // Just force a re-render occasionally to keep the animation fresh
+    const interval = setInterval(() => {
+      setAnimationKey(prev => prev + 1);
+    }, 60000); // Re-render every minute to ensure animation stays smooth
     
-    const animationInterval = setInterval(animateText, 20);
-    return () => clearInterval(animationInterval);
+    return () => clearInterval(interval);
   }, []);
 
+  const contactText = "Please contact 8787649928 for any delivery inquiries. All day service available, Delhi-Imphal in One day service available";
+  
   return (
     <>
-      {/* Contact header with animation */}
+      {/* Contact header with continuous animation */}
       <div className="bg-black text-white py-2 px-4 text-center text-sm md:text-base overflow-hidden fixed w-full z-50">
         <div 
-          className="flex items-center justify-center whitespace-nowrap transition-transform duration-300 ease-linear"
-          style={{ transform: `translateX(${position}%)` }}
+          key={animationKey}
+          className="flex items-center whitespace-nowrap w-max marquee"
         >
-          <Phone size={16} className="mr-2 flex-shrink-0" />
-          <span className="flex-shrink-0">
-            Please contact <span className="font-bold">8787649928</span> for any delivery inquiries. All day service available, Delhi-Imphal in One day service available &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </span>
+          <div className="flex items-center mr-16">
+            <Phone size={16} className="mr-2 flex-shrink-0" />
+            <span>{contactText}</span>
+          </div>
+          <div className="flex items-center mr-16">
+            <Phone size={16} className="mr-2 flex-shrink-0" />
+            <span>{contactText}</span>
+          </div>
         </div>
       </div>
       
