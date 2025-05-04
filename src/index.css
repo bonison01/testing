@@ -95,7 +95,7 @@
     @apply py-16 md:py-24;
   }
   
-  /* Add CSS for the moving header */
+  /* Improved CSS for the moving header with smooth transitions */
   @keyframes marquee {
     0% {
       transform: translateX(100%);
