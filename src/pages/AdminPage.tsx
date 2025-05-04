@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/components/AuthContext";
 import { 
   Table, 
   TableBody, 
@@ -18,88 +18,77 @@ import { Event, Registration } from "@/types/database";
 const AdminPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [registrations, setRegistrations] = useState<Registration[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [userRole, setUserRole] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { session, isAdmin, profile, isLoading } = useAuth();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
+    const loadData = async () => {
+      // First check if user is authenticated
+      if (!isLoading && !session) {
+        toast({
+          title: "Authentication Required",
+          description: "Please log in to access the admin area.",
+          variant: "destructive",
+        });
         navigate("/auth");
         return;
       }
       
-      // Check if user is an admin
-      const { data: profileData, error } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single();
-      
-      if (error || !profileData) {
-        console.error("Error fetching profile:", error);
-        toast({
-          title: "Access Denied",
-          description: "You don't have permission to access this area.",
-          variant: "destructive",
-        });
-        navigate("/");
-        return;
-      }
-      
-      setUserRole(profileData.role);
-      
-      if (profileData.role !== 'admin') {
+      // Then check if user is admin once profile is loaded
+      if (!isLoading && !isAdmin) {
         toast({
           title: "Access Denied",
           description: "You don't have admin privileges.",
           variant: "destructive",
         });
         navigate("/");
+        return;
+      }
+      
+      // If authentication checks passed, load data
+      if (!isLoading && isAdmin) {
+        setLoading(true);
+        
+        try {
+          // Fetch events using RPC
+          const { data: eventsData, error: eventsError } = await supabase.rpc('get_all_events');
+          
+          if (eventsError) {
+            console.error("Error fetching events:", eventsError);
+            toast({
+              title: "Error",
+              description: "Failed to load events.",
+              variant: "destructive",
+            });
+          } else if (eventsData) {
+            setEvents(eventsData as Event[]);
+          }
+          
+          // Fetch registrations using RPC
+          const { data: registrationsData, error: registrationsError } = await supabase.rpc('get_all_registrations');
+          
+          if (registrationsError) {
+            console.error("Error fetching registrations:", registrationsError);
+            toast({
+              title: "Error",
+              description: "Failed to load registrations.",
+              variant: "destructive",
+            });
+          } else if (registrationsData) {
+            setRegistrations(registrationsData as Registration[]);
+          }
+        } catch (err) {
+          console.error("Error loading admin data:", err);
+        } finally {
+          setLoading(false);
+        }
       }
     };
     
-    checkAuth();
-    
-    const fetchData = async () => {
-      setLoading(true);
-      
-      // Fetch events using RPC to avoid TypeScript issues with new tables
-      const { data: eventsData, error: eventsError } = await supabase.rpc('get_all_events');
-      
-      if (eventsError) {
-        console.error("Error fetching events:", eventsError);
-        toast({
-          title: "Error",
-          description: "Failed to load events.",
-          variant: "destructive",
-        });
-      } else if (eventsData) {
-        setEvents(eventsData as Event[]);
-      }
-      
-      // Fetch registrations using RPC to avoid TypeScript issues with new tables
-      const { data: registrationsData, error: registrationsError } = await supabase.rpc('get_all_registrations');
-      
-      if (registrationsError) {
-        console.error("Error fetching registrations:", registrationsError);
-        toast({
-          title: "Error",
-          description: "Failed to load registrations.",
-          variant: "destructive",
-        });
-      } else if (registrationsData) {
-        setRegistrations(registrationsData as Registration[]);
-      }
-      
-      setLoading(false);
-    };
-    
-    fetchData();
-  }, [navigate, toast]);
+    loadData();
+  }, [isLoading, isAdmin, session, navigate, toast]);
   
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -110,12 +99,18 @@ const AdminPage = () => {
     navigate("/");
   };
   
-  if (loading) {
+  // Show loading while checking auth or loading data
+  if (isLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading admin panel...</p>
       </div>
     );
+  }
+  
+  // Redirect is handled in the useEffect
+  if (!isAdmin || !session) {
+    return null;
   }
 
   return (

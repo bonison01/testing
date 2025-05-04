@@ -32,13 +32,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const { toast } = useToast();
 
-  const fetchUserProfile = async (userId: string) => {
+  const fetchUserProfile = async (userId: string, retryCount = 0): Promise<any> => {
     try {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle(); // Using maybeSingle instead of single to handle case where profile doesn't exist yet
       
       if (error) {
         console.error('Error fetching user profile:', error);
@@ -47,7 +47,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setProfile(data);
         setIsAdmin(data.role === 'admin');
         return data;
+      } else if (retryCount < 3) {
+        // Profile may not be created yet due to trigger timing
+        // Wait and retry a few times
+        console.log(`Profile not found for user ${userId}, retrying... (${retryCount + 1}/3)`);
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+        return fetchUserProfile(userId, retryCount + 1);
       }
+      
+      console.log(`Profile still not found after retries for user ${userId}`);
       return null;
     } catch (err) {
       console.error('Exception fetching profile:', err);
@@ -75,27 +83,53 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         
         // When user logs in or token is refreshed
         if (currentSession?.user && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED')) {
-          try {
-            // Add a delay to avoid potential race conditions with profile creation
-            setTimeout(async () => {
+          // Important: Use setTimeout to avoid potential race conditions with Supabase
+          setTimeout(async () => {
+            try {
               const profile = await fetchUserProfile(currentSession.user.id);
               
-              // If profile doesn't exist after signup, we might need to reload
+              // If profile doesn't exist after signup, we might need to create it manually
               if (!profile && event === 'SIGNED_IN') {
                 toast({
                   title: "Profile setup",
                   description: "Setting up your profile..."
                 });
-                // Give time for the trigger to create the profile
-                setTimeout(() => refreshProfile(), 1000);
+                
+                // Try to insert the profile manually if the trigger failed
+                try {
+                  const { error } = await supabase.from('profiles').insert({
+                    id: currentSession.user.id,
+                    full_name: currentSession.user.user_metadata.full_name || currentSession.user.email,
+                    // If no profiles exist, make this user an admin
+                    role: await isFirstUser() ? 'admin' : 'user'
+                  });
+                  
+                  if (!error) {
+                    // Wait a moment and then fetch the profile again
+                    setTimeout(() => refreshProfile(), 1000);
+                  } else {
+                    console.error("Error creating profile:", error);
+                  }
+                } catch (err) {
+                  console.error("Error in manual profile creation:", err);
+                }
               }
-            }, 500);
-          } catch (err) {
-            console.error("Error in auth state change handler:", err);
-          }
+            } catch (err) {
+              console.error("Error in auth state change handler:", err);
+            }
+          }, 500);
         }
       }
     );
+
+    // Helper function to check if this is the first user
+    const isFirstUser = async (): Promise<boolean> => {
+      const { count, error } = await supabase
+        .from('profiles')
+        .select('*', { count: 'exact', head: true });
+      
+      return !error && count === 0;
+    };
 
     // Check for existing session
     const initializeAuth = async () => {
@@ -106,10 +140,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(currentSession?.user ?? null);
       
       if (currentSession?.user) {
-        await fetchUserProfile(currentSession.user.id);
+        // Add a delay before fetching profile to ensure DB operations complete
+        setTimeout(async () => {
+          await fetchUserProfile(currentSession.user.id);
+          setIsLoading(false);
+        }, 1000);
+      } else {
+        setIsLoading(false);
       }
-      
-      setIsLoading(false);
     };
 
     initializeAuth();
