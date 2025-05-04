@@ -57,11 +57,11 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative bg-gradient-to-r from-green-700 to-emerald-700 text-white pt-24 pb-16 md:pt-32 md:pb-24">
+    <div className="relative bg-gradient-to-r from-green-700 to-emerald-700 text-white pt-24 pb-16 md:pt-32 md:pb-24 w-full">
       {/* Overlay with pattern */}
       <div className="absolute inset-0 bg-black opacity-50 mix-blend-multiply"></div>
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="w-full relative z-10">
         <Carousel className="w-full" setApi={(api) => {
           if (api) {
             api.on('select', () => {
@@ -74,17 +74,17 @@ const HeroSection = () => {
             {/* Slide 1: Community Focus */}
             <CarouselItem>
               <div className="relative">
-                {/* Background Image */}
-                <div className="absolute inset-0 h-[500px] w-full">
+                {/* Background Image - Full width and taller */}
+                <div className="absolute inset-0 h-[600px] md:h-[700px] w-full">
                   <div className="absolute inset-0 bg-cover bg-center" style={{ 
                     backgroundImage: 'url("https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1000")'
                   }}></div>
                   <div className="absolute inset-0 bg-black bg-opacity-60"></div>
                 </div>
 
-                {/* Content */}
-                <div className="relative py-16 px-4 md:px-12 min-h-[500px] flex items-center">
-                  <div className="max-w-2xl mx-auto text-center">
+                {/* Content - Centered vertically and horizontally */}
+                <div className="relative py-16 px-4 min-h-[600px] md:min-h-[700px] flex items-center justify-center">
+                  <div className="max-w-2xl text-center">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
                       Bringing Communities Together
                     </h1>
@@ -107,17 +107,17 @@ const HeroSection = () => {
             {/* Slide 2: Marketplace */}
             <CarouselItem>
               <div className="relative">
-                {/* Background Image */}
-                <div className="absolute inset-0 h-[500px] w-full">
+                {/* Background Image - Full width and taller */}
+                <div className="absolute inset-0 h-[600px] md:h-[700px] w-full">
                   <div className="absolute inset-0 bg-cover bg-center" style={{ 
                     backgroundImage: 'url("https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=1000")'
                   }}></div>
                   <div className="absolute inset-0 bg-black bg-opacity-60"></div>
                 </div>
 
-                {/* Content */}
-                <div className="relative py-16 px-4 md:px-12 min-h-[500px] flex items-center">
-                  <div className="max-w-2xl mx-auto text-center">
+                {/* Content - Centered vertically and horizontally */}
+                <div className="relative py-16 px-4 min-h-[600px] md:min-h-[700px] flex items-center justify-center">
+                  <div className="max-w-2xl text-center">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
                       Shop Local, Support Local
                     </h1>
@@ -140,17 +140,17 @@ const HeroSection = () => {
             {/* Slide 3: Education Competition */}
             <CarouselItem>
               <div className="relative">
-                {/* Background Image */}
-                <div className="absolute inset-0 h-[500px] w-full">
+                {/* Background Image - Full width and taller */}
+                <div className="absolute inset-0 h-[600px] md:h-[700px] w-full">
                   <div className="absolute inset-0 bg-cover bg-center" style={{ 
                     backgroundImage: 'url("https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1000")'
                   }}></div>
                   <div className="absolute inset-0 bg-black bg-opacity-60"></div>
                 </div>
 
-                {/* Content */}
-                <div className="relative py-16 px-4 md:px-12 min-h-[500px] flex items-center">
-                  <div className="max-w-2xl mx-auto text-center">
+                {/* Content - Centered vertically and horizontally */}
+                <div className="relative py-16 px-4 min-h-[600px] md:min-h-[700px] flex items-center justify-center">
+                  <div className="max-w-2xl text-center">
                     <div className="inline-block mb-4">
                       <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full flex items-center justify-center">
                         <GraduationCap size={20} className="mr-2" /> 
