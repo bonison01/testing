@@ -57,9 +57,8 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative bg-gradient-to-r from-green-700 to-emerald-700 text-white pt-24 pb-16 md:pt-32 md:pb-24 w-full">
-      {/* Overlay with pattern */}
-      <div className="absolute inset-0 bg-black opacity-50 mix-blend-multiply"></div>
+    <div className="relative w-full">
+      {/* Removed bg-gradient-to-r from-green-700 to-emerald-700 and padding classes */}
       
       <div className="w-full relative z-10">
         <Carousel className="w-full" setApi={(api) => {
@@ -85,7 +84,7 @@ const HeroSection = () => {
                 {/* Content - Centered vertically and horizontally */}
                 <div className="relative py-16 px-4 min-h-[600px] md:min-h-[700px] flex items-center justify-center">
                   <div className="max-w-2xl text-center">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in text-white">
                       Bringing Communities Together
                     </h1>
                     <p className="text-lg md:text-xl mb-8 text-gray-100 max-w-xl mx-auto">
@@ -118,7 +117,7 @@ const HeroSection = () => {
                 {/* Content - Centered vertically and horizontally */}
                 <div className="relative py-16 px-4 min-h-[600px] md:min-h-[700px] flex items-center justify-center">
                   <div className="max-w-2xl text-center">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in text-white">
                       Shop Local, Support Local
                     </h1>
                     <p className="text-lg md:text-xl mb-8 text-gray-100 max-w-xl mx-auto">
@@ -157,7 +156,7 @@ const HeroSection = () => {
                         Mateng Education
                       </div>
                     </div>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in text-white">
                       June 2025 Education Competition
                     </h1>
                     <p className="text-lg md:text-xl mb-8 text-gray-100 max-w-xl mx-auto">
@@ -202,7 +201,7 @@ const HeroSection = () => {
           <CarouselNext className="right-2 md:right-4 bg-black/50 hover:bg-black/70 text-white border-none z-20" />
           
           {/* Slide indicators */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-2 mt-6 pb-6">
             {[0, 1, 2].map((index) => (
               <button
                 key={index}
