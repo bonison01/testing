@@ -89,7 +89,9 @@ const HeroSection = () => {
   return (
     <div className="relative bg-gradient-to-r from-green-700 to-emerald-700 text-white pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
       {/* Carousel for hero banners */}
-      <Carousel className="w-full">
+      <Carousel 
+        className="w-full"
+      >
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={slide.id} className="w-full">
@@ -103,56 +105,58 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-black opacity-60 mix-blend-multiply"></div>
               </div>
               
-              {/* Content */}
-              <div className="container mx-auto px-6 relative z-10 min-h-[70vh] flex items-center justify-center">
-                <div className="max-w-6xl mx-auto text-center">
-                  {/* Text content */}
-                  <div className="w-full animate-fade-in">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                      {slide.title}
-                    </h1>
-                    <p className="text-lg md:text-xl mb-8 text-gray-100 max-w-3xl mx-auto">
-                      {slide.subtitle}
-                    </p>
-                    
-                    {/* Special countdown timer for the Education Competition slide */}
-                    {slide.id === 4 && (
-                      <div className="grid grid-cols-4 gap-2 bg-black/30 p-5 rounded-lg mb-5 border border-white/20 shadow-inner max-w-md mx-auto">
-                        <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">30</span>
-                          <span className="text-sm font-medium">Days</span>
+              {/* Content - Only render content for the current slide */}
+              {current === index && (
+                <div className="container mx-auto px-6 relative z-10 min-h-[70vh] flex items-center justify-center">
+                  <div className="max-w-6xl mx-auto text-center">
+                    {/* Text content */}
+                    <div className="w-full animate-fade-in">
+                      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        {slide.title}
+                      </h1>
+                      <p className="text-lg md:text-xl mb-8 text-gray-100 max-w-3xl mx-auto">
+                        {slide.subtitle}
+                      </p>
+                      
+                      {/* Special countdown timer for the Education Competition slide */}
+                      {slide.id === 4 && (
+                        <div className="grid grid-cols-4 gap-2 bg-black/30 p-5 rounded-lg mb-5 border border-white/20 shadow-inner max-w-md mx-auto">
+                          <div className="flex flex-col items-center">
+                            <span className="text-3xl font-bold">30</span>
+                            <span className="text-sm font-medium">Days</span>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <span className="text-3xl font-bold">12</span>
+                            <span className="text-sm font-medium">Hours</span>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <span className="text-3xl font-bold">45</span>
+                            <span className="text-sm font-medium">Minutes</span>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <span className="text-3xl font-bold">20</span>
+                            <span className="text-sm font-medium">Seconds</span>
+                          </div>
                         </div>
-                        <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">12</span>
-                          <span className="text-sm font-medium">Hours</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">45</span>
-                          <span className="text-sm font-medium">Minutes</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <span className="text-3xl font-bold">20</span>
-                          <span className="text-sm font-medium">Seconds</span>
-                        </div>
+                      )}
+                      
+                      <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center">
+                        {slide.buttons.map((button, btnIndex) => (
+                          <Button 
+                            key={btnIndex}
+                            asChild 
+                            size="lg" 
+                            variant={button.variant}
+                            className={`text-base ${button.variant === "outline" ? "bg-white/10 border-white hover:bg-white/20" : "hover-scale"}`}
+                          >
+                            <NavLink to={button.link}>{button.text}</NavLink>
+                          </Button>
+                        ))}
                       </div>
-                    )}
-                    
-                    <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center">
-                      {slide.buttons.map((button, btnIndex) => (
-                        <Button 
-                          key={btnIndex}
-                          asChild 
-                          size="lg" 
-                          variant={button.variant}
-                          className={`text-base ${button.variant === "outline" ? "bg-white/10 border-white hover:bg-white/20" : "hover-scale"}`}
-                        >
-                          <NavLink to={button.link}>{button.text}</NavLink>
-                        </Button>
-                      ))}
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -169,8 +173,14 @@ const HeroSection = () => {
           ))}
         </div>
         
-        <CarouselPrevious className="left-4 bg-white/20 hover:bg-white/40 border-none text-white" />
-        <CarouselNext className="right-4 bg-white/20 hover:bg-white/40 border-none text-white" />
+        <CarouselPrevious 
+          className="left-4 bg-white/20 hover:bg-white/40 border-none text-white" 
+          onClick={() => handleSlideChange((current - 1 + slides.length) % slides.length)}
+        />
+        <CarouselNext 
+          className="right-4 bg-white/20 hover:bg-white/40 border-none text-white" 
+          onClick={() => handleSlideChange((current + 1) % slides.length)}
+        />
       </Carousel>
     </div>
   );
