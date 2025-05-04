@@ -89,7 +89,7 @@ const HeroSection = () => {
   return (
     <div className="relative bg-gradient-to-r from-green-700 to-emerald-700 text-white pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
       {/* Carousel for hero banners */}
-      <Carousel className="w-full" onSelect={(api) => api && setCurrent(api.selectedScrollSnap())}>
+      <Carousel className="w-full">
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={slide.id} className="w-full">
