@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -55,11 +54,7 @@ const Navbar = () => {
                   <NavigationMenu key={item.name}>
                     <NavigationMenuList>
                       <NavigationMenuItem>
-                        <NavigationMenuTrigger className={({ isActive }) =>
-                          isActive
-                            ? "text-primary font-medium"
-                            : "text-gray-600 hover:text-primary transition-colors"
-                        }>
+                        <NavigationMenuTrigger className="text-gray-600 hover:text-primary transition-colors">
                           Services
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
