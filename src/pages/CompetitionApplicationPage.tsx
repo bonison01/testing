@@ -23,20 +23,20 @@ const CompetitionApplicationPage = () => {
   } = useCompetitionForm();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       
-      <main className="flex-grow py-10 px-4">
+      <main className="flex-grow py-12 px-4 md:px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold mb-2">Mental Maths Competition Application Form</h1>
-            <p className="text-gray-600">Please fill in all required details to register for the competition</p>
+          <div className="mb-10 text-center">
+            <h1 className="text-3xl font-bold mb-3 text-gray-800">Mental Maths Competition Application Form</h1>
+            <p className="text-gray-600 max-w-2xl mx-auto">Please fill in all required details to register for the competition</p>
           </div>
 
           <ImportantInfoCard />
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10 mt-8">
               {/* Personal Information */}
               <PersonalInfoSection form={form} />
               
@@ -61,12 +61,12 @@ const CompetitionApplicationPage = () => {
               {/* Declaration */}
               <DeclarationSection />
               
-              <div className="flex justify-center">
+              <div className="flex justify-center pt-6">
                 <Button 
                   type="submit" 
                   size="lg" 
                   disabled={isSubmitting}
-                  className="px-8"
+                  className="px-12 py-6 text-base rounded-md shadow-md hover:shadow-lg transition-all"
                 >
                   {isSubmitting ? "Submitting..." : "Submit Application"}
                 </Button>

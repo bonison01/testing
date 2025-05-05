@@ -16,24 +16,25 @@ const DeclarationSection = () => {
   const [termsDialogOpen, setTermsDialogOpen] = useState(false);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border">
-      <h3 className="font-semibold mb-4">Declaration</h3>
-      <div className="text-sm text-gray-700 mb-4">
+    <div className="bg-white p-8 rounded-lg shadow-sm border">
+      <h3 className="font-semibold text-xl mb-5 text-gray-800">Declaration</h3>
+      <div className="text-sm text-gray-700 mb-6 leading-relaxed">
         <p>
           I hereby declare that all the information provided in this form is true, complete and correct to the best of my knowledge and belief. 
           I understand that in the event of any information being found false or incorrect at any stage, my application is liable to be rejected.
         </p>
       </div>
       
-      <div className="flex items-start space-x-2 mb-4">
+      <div className="flex items-start space-x-3 mb-4">
         <div className="mt-1">
           <Checkbox 
             id="declaration" 
             required
+            className="h-5 w-5"
           />
         </div>
         <div>
-          <label htmlFor="declaration" className="text-sm font-medium">
+          <label htmlFor="declaration" className="text-sm font-medium leading-relaxed">
             I agree to the above declaration and the <Button 
               variant="link" 
               className="p-0 h-auto text-primary underline font-medium" 
@@ -48,7 +49,7 @@ const DeclarationSection = () => {
       <Dialog open={termsDialogOpen} onOpenChange={setTermsDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+            <DialogTitle className="flex items-center gap-2 text-xl">
               <FileText className="h-5 w-5" />
               Terms and Conditions
             </DialogTitle>
@@ -110,7 +111,7 @@ const DeclarationSection = () => {
           </div>
           
           <DialogClose asChild>
-            <Button className="mt-4">I Understand</Button>
+            <Button className="mt-6">I Understand</Button>
           </DialogClose>
         </DialogContent>
       </Dialog>

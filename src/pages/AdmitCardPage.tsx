@@ -15,6 +15,8 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { format } from "date-fns";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Calendar, Clock, MapPin } from "lucide-react";
 
 interface AdmitCardData {
   form_no: string;
@@ -33,6 +35,7 @@ const AdmitCardPage = () => {
   const [formNo, setFormNo] = useState("");
   const [loading, setLoading] = useState(false);
   const [admitCardData, setAdmitCardData] = useState<AdmitCardData | null>(null);
+  const [notReadyMessage, setNotReadyMessage] = useState<string | null>(null);
 
   const fetchAdmitCard = async () => {
     if (!formNo) {
@@ -45,6 +48,7 @@ const AdmitCardPage = () => {
     }
     
     setLoading(true);
+    setNotReadyMessage(null);
     
     try {
       const { data, error } = await supabase
@@ -56,11 +60,19 @@ const AdmitCardPage = () => {
       if (error) throw error;
       
       if (!data.roll_number) {
-        toast({
-          title: "Admit Card Not Available",
-          description: "Your admit card has not been issued yet. Please check back later.",
-          variant: "destructive"
-        });
+        setNotReadyMessage("Your admit card has not been generated yet. Please check back later.");
+        setAdmitCardData(null);
+        return;
+      }
+      
+      // Check if exam details are available
+      if (!data.exam_date || !data.exam_time || !data.exam_centre) {
+        const missingDetails = [];
+        if (!data.exam_date) missingDetails.push("exam date");
+        if (!data.exam_time) missingDetails.push("exam time");
+        if (!data.exam_centre) missingDetails.push("exam centre");
+        
+        setNotReadyMessage(`Your admit card is being prepared. Exam ${missingDetails.join(", ")} information is not available yet. Please check back later.`);
         setAdmitCardData(null);
         return;
       }
@@ -84,17 +96,17 @@ const AdmitCardPage = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       
-      <main className="flex-grow py-10 px-4">
+      <main className="flex-grow py-12 px-4 md:px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold mb-2">Mental Maths Competition Admit Card</h1>
-            <p className="text-gray-600">Enter your form number to download your admit card</p>
+          <div className="mb-10 text-center">
+            <h1 className="text-3xl font-bold mb-3 text-gray-800">Mental Maths Competition Admit Card</h1>
+            <p className="text-gray-600 max-w-2xl mx-auto">Enter your form number to download your admit card</p>
           </div>
           
-          <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+          <div className="bg-white p-8 rounded-lg shadow-md mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-end">
               <div className="flex-grow">
                 <label htmlFor="formNo" className="block text-sm font-medium text-gray-700 mb-1">
@@ -105,31 +117,40 @@ const AdmitCardPage = () => {
                   placeholder="Enter your form number (e.g., MMC-2025-00001)"
                   value={formNo}
                   onChange={(e) => setFormNo(e.target.value)}
+                  className="text-base py-6"
                 />
               </div>
               <Button 
                 onClick={fetchAdmitCard} 
                 disabled={loading}
-                className="md:w-auto w-full"
+                className="md:w-auto w-full py-6"
+                size="lg"
               >
                 {loading ? "Loading..." : "Get Admit Card"}
               </Button>
             </div>
           </div>
           
+          {notReadyMessage && (
+            <Alert className="mb-8">
+              <AlertTitle>Admit Card Not Available</AlertTitle>
+              <AlertDescription>{notReadyMessage}</AlertDescription>
+            </Alert>
+          )}
+          
           {admitCardData && (
             <div className="print:shadow-none" id="admitCard">
               <div className="mb-4 print:hidden">
-                <Button onClick={printAdmitCard} variant="outline">
-                  Print Admit Card
+                <Button onClick={printAdmitCard} variant="outline" size="lg" className="flex items-center gap-2">
+                  <span>Print Admit Card</span>
                 </Button>
               </div>
               
-              <Card className="border-2 border-gray-300">
-                <CardHeader className="border-b-2 border-gray-200 bg-gray-50">
+              <Card className="border-2 border-gray-300 print:border-0">
+                <CardHeader className="border-b-2 border-gray-200 bg-gray-50 print:bg-white">
                   <div className="flex justify-between items-center">
                     <div>
-                      <CardTitle className="text-xl">Mental Maths Competition 2025</CardTitle>
+                      <CardTitle className="text-2xl">Mental Maths Competition 2025</CardTitle>
                       <CardDescription>Mateng Education</CardDescription>
                     </div>
                     <div className="text-right">
@@ -139,10 +160,10 @@ const AdmitCardPage = () => {
                   </div>
                 </CardHeader>
                 
-                <CardContent className="pt-6">
-                  <div className="flex flex-col md:flex-row gap-6">
+                <CardContent className="pt-8">
+                  <div className="flex flex-col md:flex-row gap-8">
                     <div className="md:w-1/4">
-                      <div className="border border-gray-300 rounded-md overflow-hidden h-40 w-32">
+                      <div className="border-2 border-gray-300 rounded-md overflow-hidden h-40 w-32 mx-auto md:mx-0">
                         <img
                           src={admitCardData.photo_url}
                           alt="Candidate"
@@ -151,52 +172,61 @@ const AdmitCardPage = () => {
                       </div>
                     </div>
                     
-                    <div className="md:w-3/4 space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="md:w-3/4 space-y-5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                           <p className="text-sm text-gray-500">Roll Number</p>
-                          <p className="font-semibold">{admitCardData.roll_number}</p>
+                          <p className="font-semibold text-lg">{admitCardData.roll_number}</p>
                         </div>
                         <div>
                           <p className="text-sm text-gray-500">Class</p>
-                          <p className="font-semibold">{admitCardData.class}</p>
+                          <p className="font-semibold text-lg">{admitCardData.class}</p>
                         </div>
                       </div>
                       
                       <div>
                         <p className="text-sm text-gray-500">Candidate Name</p>
-                        <p className="font-semibold">{admitCardData.applicant_name}</p>
+                        <p className="font-semibold text-lg">{admitCardData.applicant_name}</p>
                       </div>
                       
                       <div>
                         <p className="text-sm text-gray-500">Father's Name</p>
-                        <p className="font-semibold">{admitCardData.father_name}</p>
+                        <p className="font-semibold text-lg">{admitCardData.father_name}</p>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-sm text-gray-500">Exam Date</p>
-                          <p className="font-semibold">
-                            {format(new Date(admitCardData.exam_date), "MMMM d, yyyy")}
-                          </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div className="flex items-start gap-2">
+                          <Calendar className="h-5 w-5 text-primary mt-1" />
+                          <div>
+                            <p className="text-sm text-gray-500">Exam Date</p>
+                            <p className="font-semibold text-lg">
+                              {format(new Date(admitCardData.exam_date), "MMMM d, yyyy")}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-sm text-gray-500">Exam Time</p>
-                          <p className="font-semibold">{admitCardData.exam_time}</p>
+                        <div className="flex items-start gap-2">
+                          <Clock className="h-5 w-5 text-primary mt-1" />
+                          <div>
+                            <p className="text-sm text-gray-500">Exam Time</p>
+                            <p className="font-semibold text-lg">{admitCardData.exam_time}</p>
+                          </div>
                         </div>
                       </div>
                       
-                      <div>
-                        <p className="text-sm text-gray-500">Exam Centre</p>
-                        <p className="font-semibold">{admitCardData.exam_centre}</p>
+                      <div className="flex items-start gap-2">
+                        <MapPin className="h-5 w-5 text-primary mt-1" />
+                        <div>
+                          <p className="text-sm text-gray-500">Exam Centre</p>
+                          <p className="font-semibold text-lg">{admitCardData.exam_centre}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </CardContent>
                 
-                <CardFooter className="flex-col items-start border-t border-gray-200 pt-4">
-                  <h4 className="font-semibold mb-2">Important Instructions:</h4>
-                  <ul className="text-sm space-y-1 list-disc list-inside">
+                <CardFooter className="flex-col items-start border-t border-gray-200 pt-6">
+                  <h4 className="font-semibold text-lg mb-3">Important Instructions:</h4>
+                  <ul className="text-sm space-y-2 list-disc list-inside">
                     <li>Please arrive at the exam centre 30 minutes before the scheduled time</li>
                     <li>Bring this admit card along with a valid photo ID</li>
                     <li>Carry basic stationery items (pencils, erasers, etc.)</li>
