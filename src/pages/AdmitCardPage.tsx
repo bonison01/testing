@@ -40,14 +40,21 @@ const AdmitCardPage = () => {
     setApplicationStatus(null);
     
     try {
+      console.log("Fetching application with form number:", formNo);
+      
       const { data, error } = await supabase
         .from("mental_maths_applications")
         .select("form_no, applicant_name, father_name, photo_url, roll_number, class, exam_date, exam_time, exam_centre, payment_verified")
-        .eq("form_no", formNo);
+        .eq("form_no", formNo.trim());
         
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
       
-      if (data.length === 0) {
+      console.log("Fetched data:", data);
+      
+      if (!data || data.length === 0) {
         toast({
           title: "Not Found",
           description: "No application found with this form number. Please check and try again.",
