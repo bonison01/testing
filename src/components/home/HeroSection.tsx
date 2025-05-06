@@ -191,7 +191,7 @@ const HeroSection = () => {
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
                       backgroundImage:
-                        'url("https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/3.png")',
+                        'url("https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/3.jpg")',
                     }}
                   ></div>
                   <div className="absolute inset-0 bg-black bg-opacity-60"></div>
