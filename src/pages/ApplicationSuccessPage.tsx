@@ -17,7 +17,7 @@ const ApplicationSuccessPage = () => {
     const params = new URLSearchParams(location.search);
     const formNoParam = params.get("form_no");
     setFormNo(formNoParam);
-    
+
     // If there's no form number, redirect to the competition page
     if (!formNoParam) {
       navigate("/competition");
@@ -27,7 +27,7 @@ const ApplicationSuccessPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
+
       <main className="flex-grow py-10 px-4">
         <div className="container mx-auto max-w-3xl">
           <Card className="border-green-100">
@@ -37,13 +37,13 @@ const ApplicationSuccessPage = () => {
               </div>
               <CardTitle className="text-2xl text-green-700">Application Submitted Successfully!</CardTitle>
             </CardHeader>
-            
+
             <CardContent className="pt-6">
               <div className="text-center mb-8">
                 <p className="text-gray-600 mb-4">
                   Thank you for applying to the Mental Maths Competition. Your application has been received and is being processed.
                 </p>
-                
+
                 {formNo && (
                   <div className="bg-gray-50 inline-block px-6 py-3 rounded-lg border">
                     <p className="text-sm text-gray-500">Your Form Number</p>
@@ -51,7 +51,7 @@ const ApplicationSuccessPage = () => {
                   </div>
                 )}
               </div>
-              
+
               <div className="space-y-6">
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <h3 className="font-semibold text-blue-800 flex items-center mb-2">
@@ -60,17 +60,17 @@ const ApplicationSuccessPage = () => {
                   </h3>
                   <ul className="space-y-2 pl-6 text-gray-700">
                     <li>
-                      <span className="font-medium">Admit Card Issue:</span> June 10, 2025
+                      <span className="font-medium">Admit Card Issue:</span> June 3, 2025
                     </li>
                     <li>
-                      <span className="font-medium">Competition Date:</span> June 15, 2025
+                      <span className="font-medium">Competition Date:</span> June 8, 2025
                     </li>
                     <li>
                       <span className="font-medium">Award Ceremony:</span> June 22, 2025
                     </li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-amber-50 p-4 rounded-lg">
                   <h3 className="font-semibold text-amber-800 flex items-center mb-2">
                     <Clock size={18} className="mr-2" />
@@ -83,9 +83,9 @@ const ApplicationSuccessPage = () => {
                     <li>Please keep your form number safe for future reference</li>
                   </ul>
                 </div>
-                
+
                 <div className="text-center mt-8">
-                  <Button 
+                  <Button
                     onClick={() => navigate("/competition")}
                     variant="outline"
                   >
@@ -97,7 +97,7 @@ const ApplicationSuccessPage = () => {
           </Card>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );

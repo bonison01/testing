@@ -1,63 +1,36 @@
-
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { NavLink } from "react-router-dom";
 import { CalendarDays, Trophy, Flag } from "lucide-react";
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { Event } from "@/types/database";
 
 const UpcomingEventsSection = () => {
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        setLoading(true);
-        
-        // Use RPC to get featured events
-        const { data, error } = await supabase.rpc('get_featured_events');
-        
-        if (error) {
-          console.error("Error fetching events:", error);
-        } else if (data && data.length > 0) {
-          setEvents(data as Event[]);
-        } else {
-          // If no featured events, fall back to default content
-          setEvents([]);
-        }
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchEvents();
-  }, []);
-  
-  // Default event for fallback or while loading
-  const defaultEvent: Event = {
+  // Directly use the default event
+  const defaultEvent = {
     id: "default",
-    title: "June Education Competition",
-    description: "Join our prestigious education competition with $50,000 in prizes and connect with industry leaders. Open to students in grades 4-6 and 11-12.",
-    event_date: "2025-06-15T00:00:00",
-    location: "Virtual Event",
+    title: "June Maths Competition",
+    description:
+      "Join our prestigious education competition and connect with industry leaders. Open to students in grades 4-6.",
+    event_date: "2025-06-08T00:00:00", // Ensure it's in ISO format for consistency
+    location: "To be Announced",
     is_featured: true,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
-    image_url: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800"
+    image_url:
+      "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800",
   };
-  
-  // Calculate the countdown time for competition
-  const competitionDate = new Date(events[0]?.event_date || 'June 15, 2025 00:00:00');
+
+  // Since there's no need for an API call, use the default event directly
+  const featuredEvent = defaultEvent;
+
+  // Calculate countdown for competition date
+  const competitionDate = new Date(featuredEvent.event_date || "2025-06-08T00:00:00");
   const now = new Date();
-  const daysLeft = Math.ceil((competitionDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-  
-  // Use featured event from DB or fallback to default
-  const featuredEvent = events.length > 0 ? events[0] : defaultEvent;
-  
+  const daysLeft = Math.max(
+    0,
+    Math.ceil((competitionDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+  );
+
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="container mx-auto px-4">
@@ -70,7 +43,7 @@ const UpcomingEventsSection = () => {
             <NavLink to="/events">View All Events</NavLink>
           </Button>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Featured Event */}
           <div className="lg:col-span-2">
@@ -81,32 +54,32 @@ const UpcomingEventsSection = () => {
               <div className="absolute bottom-0 left-0 w-32 h-32 -mb-10 -ml-10">
                 <div className="w-full h-full rounded-full bg-white/5"></div>
               </div>
-              
+
               <div className="relative z-10 p-8 h-full flex flex-col">
                 <div className="mb-4 flex items-center space-x-2">
                   <Badge className="bg-white/20 hover:bg-white/30 text-white">Featured</Badge>
                   <Badge className="bg-white/20 hover:bg-white/30 text-white">Education</Badge>
                 </div>
-                
+
                 <div className="flex items-center mb-3">
                   <CalendarDays className="w-5 h-5 mr-2" />
                   <span className="text-sm font-medium">
-                    {new Date(featuredEvent.event_date).toLocaleDateString(undefined, { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
+                    {new Date(featuredEvent.event_date).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                   </span>
                 </div>
-                
+
                 <h3 className="text-2xl md:text-3xl font-bold mb-4">{featuredEvent.title}</h3>
                 <p className="mb-6">{featuredEvent.description}</p>
-                
+
                 <div className="flex items-center mb-6">
                   <Trophy className="w-5 h-5 mr-2" />
-                  <span className="font-medium">$50,000 Prize Pool</span>
+                  <span className="font-medium">Win Exciting Prizes.</span>
                 </div>
-                
+
                 <div className="mt-auto flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                   <Button asChild size="lg" className="bg-white text-emerald-600 hover:bg-white/90">
                     <NavLink to="/competition">Register Now</NavLink>
@@ -119,13 +92,13 @@ const UpcomingEventsSection = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Event Details Card */}
           <div className="bg-gray-50 rounded-xl shadow-sm overflow-hidden border border-gray-100">
             <div className="relative h-48 overflow-hidden">
-              <img 
-                src={featuredEvent.image_url || "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800"} 
-                alt={featuredEvent.title} 
+              <img
+                src={featuredEvent.image_url}
+                alt={featuredEvent.title}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -133,30 +106,20 @@ const UpcomingEventsSection = () => {
                 <div className="flex items-center">
                   <CalendarDays className="w-4 h-4 mr-1" />
                   <span className="text-sm">
-                    {new Date(featuredEvent.event_date).toLocaleDateString(undefined, { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
+                    {new Date(featuredEvent.event_date).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                   </span>
                 </div>
               </div>
             </div>
-            
+
             <div className="p-6">
               <h3 className="text-xl font-bold mb-3">Competition Details</h3>
-              
+
               <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="bg-emerald-100 p-2 rounded-full mr-3">
-                    <Trophy className="w-4 h-4 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium">Prizes</h4>
-                    <p className="text-sm text-gray-600">$50,000 prize pool with awards for all participants</p>
-                  </div>
-                </div>
-                
                 <div className="flex items-start">
                   <div className="bg-emerald-100 p-2 rounded-full mr-3">
                     <CalendarDays className="w-4 h-4 text-emerald-600" />
@@ -164,22 +127,28 @@ const UpcomingEventsSection = () => {
                   <div>
                     <h4 className="font-medium">Schedule</h4>
                     <p className="text-sm text-gray-600">
-                      Registration closes {new Date(featuredEvent.event_date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})}
+                      Registration closes{" "}
+                      {new Date("2025-05-30T00:00:00").toLocaleDateString(undefined, {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
                     </p>
+
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <div className="bg-emerald-100 p-2 rounded-full mr-3">
                     <Flag className="w-4 h-4 text-emerald-600" />
                   </div>
                   <div>
                     <h4 className="font-medium">Eligibility</h4>
-                    <p className="text-sm text-gray-600">Open for students of classes 4-6 and 11-12</p>
+                    <p className="text-sm text-gray-600">Open for students of classes 4-6</p>
                   </div>
                 </div>
               </div>
-              
+
               <Button asChild variant="outline" className="w-full mt-6">
                 <NavLink to="/competition#details">Learn More</NavLink>
               </Button>

@@ -1,4 +1,4 @@
-
+import React, { useState } from "react";
 import { FileText, Check } from "lucide-react";
 import { FormLabel } from "@/components/ui/form";
 import { FileUploader } from "@/components/FileUploader";
@@ -17,6 +17,17 @@ const DocumentUploadsSection = ({
   fileUploads,
   handleFileChange,
 }: DocumentUploadsSectionProps) => {
+  const [uploadedPhotoUrl, setUploadedPhotoUrl] = useState<string | null>(null);
+
+  const handlePhotoUpload = (file: File | null) => {
+    if (file) {
+      // Simulate file upload and get the URL
+      const photoUrl = URL.createObjectURL(file);
+      setUploadedPhotoUrl(photoUrl);
+    }
+    handleFileChange("photo", file);
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border">
       <h2 className="text-xl font-semibold mb-4 flex items-center">
@@ -27,7 +38,7 @@ const DocumentUploadsSection = ({
         <div>
           <FormLabel className="mb-2 block">Aadhaar Card Front*</FormLabel>
           <FileUploader
-            onFileSelect={(file) => handleFileChange('aadhaar_front', file)}
+            onFileSelect={(file) => handleFileChange("aadhaar_front", file)}
             acceptedFileTypes="image/*"
             maxSizeMB={2}
           />
@@ -41,11 +52,11 @@ const DocumentUploadsSection = ({
             </div>
           )}
         </div>
-        
+
         <div>
           <FormLabel className="mb-2 block">Aadhaar Card Back*</FormLabel>
           <FileUploader
-            onFileSelect={(file) => handleFileChange('aadhaar_back', file)}
+            onFileSelect={(file) => handleFileChange("aadhaar_back", file)}
             acceptedFileTypes="image/*"
             maxSizeMB={2}
           />
@@ -59,11 +70,11 @@ const DocumentUploadsSection = ({
             </div>
           )}
         </div>
-        
+
         <div>
           <FormLabel className="mb-2 block">Recent Passport Size Photo*</FormLabel>
           <FileUploader
-            onFileSelect={(file) => handleFileChange('photo', file)}
+            onFileSelect={handlePhotoUpload}
             acceptedFileTypes="image/*"
             maxSizeMB={1}
           />
@@ -74,6 +85,15 @@ const DocumentUploadsSection = ({
           ) : (
             <div className="mt-2 text-sm text-gray-500">
               Please upload a recent passport size photograph with white background
+            </div>
+          )}
+          {uploadedPhotoUrl && (
+            <div className="mt-4">
+              <img
+                src={uploadedPhotoUrl}
+                alt="Uploaded Passport Photo"
+                className="w-32 h-32 object-cover rounded-md"
+              />
             </div>
           )}
         </div>

@@ -28,24 +28,24 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const [animationKey, setAnimationKey] = useState(0);
-  
+
   useEffect(() => {
     // No animation control needed here as we're using CSS animation
     // Just force a re-render occasionally to keep the animation fresh
     const interval = setInterval(() => {
       setAnimationKey(prev => prev + 1);
     }, 60000); // Re-render every minute to ensure animation stays smooth
-    
+
     return () => clearInterval(interval);
   }, []);
 
   const contactText = "Please contact 8787649928 for any delivery inquiries. All day service available, Delhi-Imphal in One day service available";
-  
+
   return (
     <>
       {/* Contact header with continuous animation */}
       <div className="bg-black text-white py-2 px-4 text-center text-sm md:text-base overflow-hidden fixed w-full z-50">
-        <div 
+        <div
           key={animationKey}
           className="flex items-center whitespace-nowrap w-max marquee"
         >
@@ -57,12 +57,16 @@ const AppContent = () => {
             <Phone size={16} className="mr-2 flex-shrink-0" />
             <span>{contactText}</span>
           </div>
+          <div className="flex items-center mr-16">
+            <Phone size={16} className="mr-2 flex-shrink-0" />
+            <span>{contactText}</span>
+          </div>
         </div>
       </div>
-      
+
       {/* Add padding to push content below the animated header */}
       <div className="h-10"></div>
-      
+
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<AboutPage />} />

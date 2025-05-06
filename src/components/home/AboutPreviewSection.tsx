@@ -17,12 +17,12 @@ const AboutPreviewSection = () => {
             </p>
             <div className="flex flex-wrap gap-6 mb-6">
               <div>
-                <h4 className="text-2xl font-bold text-primary">50+</h4>
-                <p className="text-gray-500">Communities Served</p>
+                <h4 className="text-2xl font-bold text-primary">50,000+</h4>
+                <p className="text-gray-500">Successful Deliveries</p>
               </div>
               <div>
-                <h4 className="text-2xl font-bold text-primary">10k+</h4>
-                <p className="text-gray-500">Daily Deliveries</p>
+                <h4 className="text-2xl font-bold text-primary">30k+</h4>
+                <p className="text-gray-500">Last Mile Deliveries</p>
               </div>
               <div>
                 <h4 className="text-2xl font-bold text-primary">95%</h4>
@@ -35,9 +35,9 @@ const AboutPreviewSection = () => {
           </div>
           <div className="w-full lg:w-1/2 order-1 lg:order-2">
             <div className="rounded-lg overflow-hidden shadow-lg">
-              <img 
-                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
-                alt="Mateng Hub Connect Team" 
+              <img
+                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                alt="Mateng Hub Connect Team"
                 className="w-full object-cover h-80 lg:h-96"
               />
             </div>

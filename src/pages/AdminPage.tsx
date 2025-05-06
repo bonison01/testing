@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/components/AuthContext";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from "@/components/ui/table";
 import { Event, Registration } from "@/types/database";
 
@@ -36,17 +36,17 @@ const AdminPage = () => {
         navigate("/auth");
         return;
       }
-      
+
       // Removed the isAdmin check to allow any authenticated user
-      
+
       // If authentication checks passed, load data
       if (!isLoading && session) {
         setLoading(true);
-        
+
         try {
           // Fetch events using RPC
           const { data: eventsData, error: eventsError } = await supabase.rpc('get_all_events');
-          
+
           if (eventsError) {
             console.error("Error fetching events:", eventsError);
             toast({
@@ -57,10 +57,10 @@ const AdminPage = () => {
           } else if (eventsData) {
             setEvents(eventsData as Event[]);
           }
-          
+
           // Fetch registrations using RPC
           const { data: registrationsData, error: registrationsError } = await supabase.rpc('get_all_registrations');
-          
+
           if (registrationsError) {
             console.error("Error fetching registrations:", registrationsError);
             toast({
@@ -78,10 +78,10 @@ const AdminPage = () => {
         }
       }
     };
-    
+
     loadData();
   }, [isLoading, session, navigate, toast]);
-  
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     toast({
@@ -90,7 +90,7 @@ const AdminPage = () => {
     });
     navigate("/");
   };
-  
+
   // Show loading while checking auth or loading data
   if (isLoading || loading) {
     return (
@@ -99,7 +99,7 @@ const AdminPage = () => {
       </div>
     );
   }
-  
+
   // Only redirect if not authenticated (removed isAdmin check)
   if (!session) {
     return null;
@@ -114,13 +114,13 @@ const AdminPage = () => {
           </h1>
           <Button variant="outline" onClick={handleSignOut}>Sign Out</Button>
         </div>
-        
+
         <Tabs defaultValue="events" className="w-full">
           <TabsList>
             <TabsTrigger value="events">Events</TabsTrigger>
             <TabsTrigger value="registrations">Registrations</TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="events" className="bg-white p-4 rounded-lg shadow">
             <div className="flex justify-between mb-4">
               <h2 className="text-xl font-semibold">Events</h2>
@@ -131,7 +131,7 @@ const AdminPage = () => {
                 </Button>
               )}
             </div>
-            
+
             <div className="border rounded-md">
               <Table>
                 <TableHeader>
@@ -156,8 +156,8 @@ const AdminPage = () => {
                         {isAdmin && (
                           <TableCell>
                             <div className="flex gap-2">
-                              <Button 
-                                variant="outline" 
+                              <Button
+                                variant="outline"
                                 size="sm"
                                 onClick={() => navigate(`/admin/events/${event.id}`)}
                               >
@@ -179,10 +179,10 @@ const AdminPage = () => {
               </Table>
             </div>
           </TabsContent>
-          
+
           <TabsContent value="registrations" className="bg-white p-4 rounded-lg shadow">
             <h2 className="text-xl font-semibold mb-4">Registrations</h2>
-            
+
             <div className="border rounded-md">
               <Table>
                 <TableHeader>

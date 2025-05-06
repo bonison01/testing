@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,6 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
-    { name: "Competition", path: "/competition" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -26,12 +24,17 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <NavLink to="/" className="flex items-center">
-                <span className="text-primary font-bold text-xl">Mateng</span>
-                <span className="text-sm ml-1 text-gray-500">Hub Connect</span>
+                <span className="font-poppins font-bold text-2xl italic">
+                  <img
+                    src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/Mateng%20Visiting%20Card.png"
+                    alt="Mateng Logo"
+                    className="inline-block w-120 h-16"
+                  />
+                </span>
               </NavLink>
             </div>
           </div>
-          
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-4">
               {navItems.map((item) => (
@@ -40,17 +43,24 @@ const Navbar = () => {
                   to={item.path}
                   className={({ isActive }) =>
                     isActive
-                      ? "text-primary font-medium"
-                      : "text-gray-600 hover:text-primary transition-colors"
+                      ? "text-[#065303] font-medium"
+                      : "text-gray-600 hover:text-[#065303] transition-colors"
                   }
+
                 >
                   {item.name}
                 </NavLink>
               ))}
-              <Button>Get Started</Button>
+              {/* Wrap the Button with NavLink */}
+              <NavLink to="/competition">
+                <Button className="bg-[#065303] text-white hover:bg-[#054802]">
+                  Apply Maths Competition
+                </Button>
+              </NavLink>
+
             </div>
           </div>
-          
+
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
@@ -71,10 +81,9 @@ const Navbar = () => {
                 key={item.name}
                 to={item.path}
                 className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive
-                      ? "text-primary bg-gray-50"
-                      : "text-gray-600 hover:text-primary hover:bg-gray-50"
+                  `block px-3 py-2 rounded-md text-base font-medium ${isActive
+                    ? "text-primary bg-gray-50"
+                    : "text-gray-600 hover:text-primary hover:bg-gray-50"
                   }`
                 }
                 onClick={() => setIsOpen(false)}
