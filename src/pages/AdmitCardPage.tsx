@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/card";
 import { format } from "date-fns";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Calendar, Clock, MapPin } from "lucide-react";
+import { Calendar, Clock, MapPin, Info } from "lucide-react";
 
 interface AdmitCardData {
   form_no: string;
@@ -65,14 +65,14 @@ const AdmitCardPage = () => {
         return;
       }
       
-      // Check if exam details are available
+      // Check if ALL exam details are available
       if (!data.exam_date || !data.exam_time || !data.exam_centre) {
         const missingDetails = [];
         if (!data.exam_date) missingDetails.push("exam date");
         if (!data.exam_time) missingDetails.push("exam time");
         if (!data.exam_centre) missingDetails.push("exam centre");
         
-        setNotReadyMessage(`Your admit card is being prepared. Exam ${missingDetails.join(", ")} information is not available yet. Please check back later.`);
+        setNotReadyMessage(`Your admit card is being prepared. ${missingDetails.join(", ")} information is not available yet. Please check back later.`);
         setAdmitCardData(null);
         return;
       }
@@ -99,11 +99,11 @@ const AdmitCardPage = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       
-      <main className="flex-grow py-12 px-4 md:px-6">
+      <main className="flex-grow py-12 px-4 md:px-8 lg:px-12">
         <div className="container mx-auto max-w-4xl">
           <div className="mb-10 text-center">
-            <h1 className="text-3xl font-bold mb-3 text-gray-800">Mental Maths Competition Admit Card</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto">Enter your form number to download your admit card</p>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Mental Maths Competition Admit Card</h1>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">Enter your form number to download your admit card</p>
           </div>
           
           <div className="bg-white p-8 rounded-lg shadow-md mb-8">
@@ -132,21 +132,22 @@ const AdmitCardPage = () => {
           </div>
           
           {notReadyMessage && (
-            <Alert className="mb-8">
+            <Alert className="mb-8" variant="warning">
+              <Info className="h-5 w-5" />
               <AlertTitle>Admit Card Not Available</AlertTitle>
-              <AlertDescription>{notReadyMessage}</AlertDescription>
+              <AlertDescription className="mt-2">{notReadyMessage}</AlertDescription>
             </Alert>
           )}
           
           {admitCardData && (
             <div className="print:shadow-none" id="admitCard">
-              <div className="mb-4 print:hidden">
+              <div className="mb-4 print:hidden flex gap-2">
                 <Button onClick={printAdmitCard} variant="outline" size="lg" className="flex items-center gap-2">
                   <span>Print Admit Card</span>
                 </Button>
               </div>
               
-              <Card className="border-2 border-gray-300 print:border-0">
+              <Card className="border-2 border-gray-300 print:border-0 overflow-hidden">
                 <CardHeader className="border-b-2 border-gray-200 bg-gray-50 print:bg-white">
                   <div className="flex justify-between items-center">
                     <div>
