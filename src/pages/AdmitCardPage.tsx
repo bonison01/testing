@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/card";
 import { format } from "date-fns";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Calendar, Clock, MapPin, Info } from "lucide-react";
+import { Calendar, Clock, MapPin, Info, AlertTriangle } from "lucide-react";
 
 interface AdmitCardData {
   form_no: string;
@@ -35,7 +35,7 @@ const AdmitCardPage = () => {
   const [formNo, setFormNo] = useState("");
   const [loading, setLoading] = useState(false);
   const [admitCardData, setAdmitCardData] = useState<AdmitCardData | null>(null);
-  const [notReadyMessage, setNotReadyMessage] = useState<string | null>(null);
+  const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
 
   const fetchAdmitCard = async () => {
     if (!formNo) {
@@ -48,41 +48,61 @@ const AdmitCardPage = () => {
     }
     
     setLoading(true);
-    setNotReadyMessage(null);
+    setApplicationStatus(null);
     
     try {
       const { data, error } = await supabase
         .from("mental_maths_applications")
-        .select("form_no, applicant_name, father_name, photo_url, roll_number, class, exam_date, exam_time, exam_centre")
-        .eq("form_no", formNo)
-        .single();
+        .select("form_no, applicant_name, father_name, photo_url, roll_number, class, exam_date, exam_time, exam_centre, payment_verified")
+        .eq("form_no", formNo);
         
       if (error) throw error;
       
-      if (!data.roll_number) {
-        setNotReadyMessage("Your admit card has not been generated yet. Please check back later.");
+      if (data.length === 0) {
+        toast({
+          title: "Not Found",
+          description: "No application found with this form number. Please check and try again.",
+          variant: "destructive"
+        });
+        setAdmitCardData(null);
+        return;
+      }
+      
+      const application = data[0];
+      
+      // Application exists but check its status
+      if (!application.payment_verified) {
+        setApplicationStatus("Your payment is pending verification. Please check back later.");
+        setAdmitCardData(null);
+        return;
+      }
+      
+      if (!application.roll_number) {
+        setApplicationStatus("Your application has been received. Roll number not assigned yet. Please check back later.");
         setAdmitCardData(null);
         return;
       }
       
       // Check if ALL exam details are available
-      if (!data.exam_date || !data.exam_time || !data.exam_centre) {
+      if (!application.exam_date || !application.exam_time || !application.exam_centre) {
         const missingDetails = [];
-        if (!data.exam_date) missingDetails.push("exam date");
-        if (!data.exam_time) missingDetails.push("exam time");
-        if (!data.exam_centre) missingDetails.push("exam centre");
+        if (!application.exam_date) missingDetails.push("exam date");
+        if (!application.exam_time) missingDetails.push("exam time");
+        if (!application.exam_centre) missingDetails.push("exam centre");
         
-        setNotReadyMessage(`Your admit card is being prepared. ${missingDetails.join(", ")} information is not available yet. Please check back later.`);
+        setApplicationStatus(`Your admit card is being prepared. ${missingDetails.join(", ")} information is not available yet. Please check back later.`);
         setAdmitCardData(null);
         return;
       }
       
-      setAdmitCardData(data as AdmitCardData);
+      // All information is available, allow download
+      setAdmitCardData(application as AdmitCardData);
+      setApplicationStatus("Your admit card is ready for download.");
     } catch (error: any) {
       console.error("Error fetching admit card:", error);
       toast({
         title: "Error",
-        description: "No application found with this form number. Please check and try again.",
+        description: "An error occurred while fetching your application details.",
         variant: "destructive"
       });
       setAdmitCardData(null);
@@ -126,16 +146,20 @@ const AdmitCardPage = () => {
                 className="md:w-auto w-full py-6"
                 size="lg"
               >
-                {loading ? "Loading..." : "Get Admit Card"}
+                {loading ? "Loading..." : "Track Application"}
               </Button>
             </div>
           </div>
           
-          {notReadyMessage && (
-            <Alert className="mb-8" variant="warning">
-              <Info className="h-5 w-5" />
-              <AlertTitle>Admit Card Not Available</AlertTitle>
-              <AlertDescription className="mt-2">{notReadyMessage}</AlertDescription>
+          {applicationStatus && (
+            <Alert className="mb-8" variant={applicationStatus.includes("ready") ? "success" : "warning"}>
+              {applicationStatus.includes("ready") ? (
+                <Info className="h-5 w-5" />
+              ) : (
+                <AlertTriangle className="h-5 w-5" />
+              )}
+              <AlertTitle>{applicationStatus.includes("ready") ? "Admit Card Ready" : "Application Status"}</AlertTitle>
+              <AlertDescription className="mt-2">{applicationStatus}</AlertDescription>
             </Alert>
           )}
           
