@@ -21,10 +21,10 @@ const MatengDeliveryPage = () => {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg" className="bg-white text-green-700 hover:bg-gray-100">
-                  <a href="#pricing">View Pricing</a>
+                  <a href="https://justmateng.com/delivery-rates">View Pricing</a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                  <a href="https://delivery.matenghub.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                <Button asChild size="lg" variant="outline" className="border-white text-green-700 hover:bg-white/10">
+                  <a href="https://justmateng.com/delivery-rates" target="_blank" rel="noopener noreferrer" className="flex items-center">
                     Go to Delivery Platform <ExternalLink className="ml-2" size={18} />
                   </a>
                 </Button>
@@ -32,12 +32,12 @@ const MatengDeliveryPage = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Why Choose Us */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12">Why Choose Mateng Delivery?</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <Card className="border-t-4 border-mateng-delivery">
                 <CardHeader className="pb-2">
@@ -50,7 +50,7 @@ const MatengDeliveryPage = () => {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card className="border-t-4 border-mateng-delivery">
                 <CardHeader className="pb-2">
                   <Shield className="w-12 h-12 text-mateng-delivery mb-4" />
@@ -62,7 +62,7 @@ const MatengDeliveryPage = () => {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card className="border-t-4 border-mateng-delivery">
                 <CardHeader className="pb-2">
                   <Package className="w-12 h-12 text-mateng-delivery mb-4" />
@@ -74,7 +74,7 @@ const MatengDeliveryPage = () => {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card className="border-t-4 border-mateng-delivery">
                 <CardHeader className="pb-2">
                   <Truck className="w-12 h-12 text-mateng-delivery mb-4" />
@@ -89,12 +89,12 @@ const MatengDeliveryPage = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Delivery Types */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12">Our Delivery Types</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-100">
                 <div className="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mb-6">
@@ -107,7 +107,7 @@ const MatengDeliveryPage = () => {
                 <ul className="space-y-2">
                   <li className="flex items-center">
                     <Check className="text-green-500 mr-2" size={18} />
-                    <span>Delivery within 2-3 hours</span>
+                    <span>Delivery within 30-60 mins</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="text-green-500 mr-2" size={18} />
@@ -119,7 +119,7 @@ const MatengDeliveryPage = () => {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-100">
                 <div className="bg-green-50 rounded-full w-16 h-16 flex items-center justify-center mb-6">
                   <Package className="text-mateng-delivery w-8 h-8" />
@@ -131,7 +131,7 @@ const MatengDeliveryPage = () => {
                 <ul className="space-y-2">
                   <li className="flex items-center">
                     <Check className="text-green-500 mr-2" size={18} />
-                    <span>Delivery by end of day</span>
+                    <span>Delivery within end of day</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="text-green-500 mr-2" size={18} />
@@ -143,7 +143,7 @@ const MatengDeliveryPage = () => {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-100">
                 <div className="bg-purple-50 rounded-full w-16 h-16 flex items-center justify-center mb-6">
                   <Truck className="text-mateng-delivery w-8 h-8" />
@@ -170,12 +170,12 @@ const MatengDeliveryPage = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Pricing */}
-        <section id="pricing" className="py-16 bg-gray-50">
+        {/* <section id="pricing" className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12">Delivery Pricing</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-100 flex flex-col">
                 <h3 className="text-xl font-bold mb-2">Express Delivery</h3>
@@ -201,7 +201,7 @@ const MatengDeliveryPage = () => {
                 </ul>
                 <Button className="w-full bg-mateng-delivery hover:bg-mateng-delivery/90">Book Now</Button>
               </div>
-              
+
               <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-100 flex flex-col relative">
                 <div className="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-lg rounded-tr-lg font-medium">Popular</div>
                 <h3 className="text-xl font-bold mb-2">Same-Day Delivery</h3>
@@ -227,7 +227,7 @@ const MatengDeliveryPage = () => {
                 </ul>
                 <Button className="w-full bg-mateng-delivery hover:bg-mateng-delivery/90">Book Now</Button>
               </div>
-              
+
               <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-100 flex flex-col">
                 <h3 className="text-xl font-bold mb-2">Scheduled Delivery</h3>
                 <div className="text-4xl font-bold text-mateng-delivery mb-4">$6.99</div>
@@ -253,7 +253,7 @@ const MatengDeliveryPage = () => {
                 <Button className="w-full bg-mateng-delivery hover:bg-mateng-delivery/90">Book Now</Button>
               </div>
             </div>
-            
+
             <div className="mt-12 bg-white p-6 rounded-lg shadow border border-gray-100">
               <h3 className="text-xl font-semibold mb-4">Additional Charges</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -276,8 +276,8 @@ const MatengDeliveryPage = () => {
               </div>
             </div>
           </div>
-        </section>
-        
+        </section> */}
+
         {/* CTA Section */}
         <section className="py-16 bg-mateng-delivery text-white">
           <div className="container mx-auto px-6 text-center">
@@ -286,11 +286,11 @@ const MatengDeliveryPage = () => {
               Join thousands of satisfied customers who are already enjoying our fast, reliable delivery services.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                Learn More
+              <Button variant="outline" size="lg" className="text-mateng-delivery">
+                Cargo Service
               </Button>
               <Button asChild variant="secondary" size="lg" className="text-mateng-delivery">
-                <a href="https://delivery.matenghub.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                <a href="https://justmateng.com/delivery-rates" target="_blank" rel="noopener noreferrer" className="flex items-center">
                   Go to Delivery Platform <ExternalLink className="ml-2" size={18} />
                 </a>
               </Button>

@@ -45,7 +45,7 @@ const VerticalsSection = () => {
       description: "Explore and discover hidden gems in your local community, from restaurants to services.",
       icon: <Map size={24} />,
       color: "#0EA5E9",
-      link: "/discovery",
+      link: "https://justmateng.com/discover",
     },
     {
       title: "Mateng Education",
@@ -59,7 +59,7 @@ const VerticalsSection = () => {
       description: "A platform connecting local vendors, service providers, and customers in a vibrant ecosystem.",
       icon: <ShoppingBag size={24} />,
       color: "#8B5CF6",
-      link: "/marketplace",
+      link: "https://justmateng.com/products",
     },
   ];
 
@@ -70,7 +70,7 @@ const VerticalsSection = () => {
         <p className="section-subtitle">
           Exploring innovative ways to connect communities through our specialized services.
         </p>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {verticals.map((vertical) => (
             <VerticalCard key={vertical.title} {...vertical} />

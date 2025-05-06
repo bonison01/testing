@@ -1,11 +1,10 @@
-
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import { Calculator, IndianRupee } from "lucide-react";
 
 const CompetitionPreviewSection = () => {
   return (
-    <section className="mateng-section bg-gradient-to-r from-indigo-600 to-purple-600 text-white relative">
+    <section className="mateng-section bg-gradient-to-r from-green-800 to-emerald-700 text-white relative">
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-10">

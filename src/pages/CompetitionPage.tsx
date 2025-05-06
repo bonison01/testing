@@ -245,9 +245,38 @@ const CompetitionPage = () => {
                   </Button>
                 </div>
               </div>
+
+              <div className="border border-gray-200 bg-white rounded-lg p-8 hover-card">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Calculator size={28} className="text-purple-600" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-center">Class 5 Category</h3>
+                <p className="text-gray-600 mb-6 text-center">
+                  For students currently enrolled in Class 5
+                </p>
+                <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                  <h4 className="font-semibold mb-2 text-gray-800">Topics Covered:</h4>
+                  <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
+                    <li>Advanced arithmetic operations</li>
+                    <li>Complex fractions and decimals</li>
+                    <li>Geometry and measurement conversions</li>
+                    <li>Data handling and interpretation</li>
+                    <li>Advanced problem solving</li>
+                  </ul>
+                </div>
+                <div className="text-center">
+                  <Button size="sm" variant="outline" className="bg-white hover:bg-purple-50">
+                    View Sample Questions
+                  </Button>
+                </div>
+              </div>
+
+
             </div>
           </div>
         </section>
+
+
 
         {/* Award Ceremony & Special Program */}
         <section className="py-16">
@@ -340,7 +369,7 @@ const CompetitionPage = () => {
 
               </div>
               <p className="mt-4 text-sm text-white/80">
-                Last date for application: June 5, 2025
+                Last date for application: May 30, 2025
               </p>
             </div>
           </div>

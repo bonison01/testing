@@ -97,7 +97,13 @@ const ServicesPage = () => {
                     </div>
                   </div>
 
-                  <Button className="bg-mateng-delivery hover:bg-mateng-delivery/90">Get Started</Button>
+                  <Button
+                    className="bg-mateng-delivery hover:bg-mateng-delivery/90"
+                    onClick={() => window.location.href = "https://justmateng.com/delivery-rates"}
+                  >
+                    Get Delivery Service
+                  </Button>
+
                 </div>
                 <div className="w-full lg:w-1/2 order-1 lg:order-2">
                   <img
@@ -275,7 +281,7 @@ const ServicesPage = () => {
                 </div>
                 <div className="w-full lg:w-1/2">
                   <img
-                    src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/3.png"
                     alt="Mateng Marketplace"
                     className="rounded-lg shadow-xl w-full h-auto"
                   />

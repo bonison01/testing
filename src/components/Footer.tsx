@@ -79,22 +79,22 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Our Verticals</h3>
             <ul className="space-y-2">
               <li>
-                <NavLink to="/services#delivery" className="text-gray-400 hover:text-white transition-colors">
+                <NavLink to="/delivery" className="text-gray-400 hover:text-white transition-colors">
                   Mateng Delivery
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/services#discovery" className="text-gray-400 hover:text-white transition-colors">
+                <NavLink to="https://justmateng.com/discover" className="text-gray-400 hover:text-white transition-colors">
                   Mateng Discovery
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/services#education" className="text-gray-400 hover:text-white transition-colors">
+                <NavLink to="/education" className="text-gray-400 hover:text-white transition-colors">
                   Mateng Education
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/services#marketplace" className="text-gray-400 hover:text-white transition-colors">
+                <NavLink to="/https://justmateng.com/products" className="text-gray-400 hover:text-white transition-colors">
                   Mateng Marketplace
                 </NavLink>
               </li>
@@ -107,19 +107,19 @@ const Footer = () => {
               <li className="flex items-start">
                 <MapPin size={20} className="mr-2 text-primary shrink-0 mt-1" />
                 <span className="text-gray-400">
-                  123 Business Avenue, City Center, Country
+                  Sagolband Sayang Leirak, Sagolband, Imphal West, Imphal-795004
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="mr-2 text-primary shrink-0" />
                 <a href="tel:+11234567890" className="text-gray-400 hover:text-white transition-colors">
-                  +1 (123) 456-7890
+                  +1 (91) 8787649928
                 </a>
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="mr-2 text-primary shrink-0" />
                 <a href="mailto:info@mateng.com" className="text-gray-400 hover:text-white transition-colors">
-                  info@mateng.com
+                  admin@justmateng.com
                 </a>
               </li>
             </ul>
@@ -128,7 +128,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-6 text-center">
           <p className="text-gray-400">
-            © {currentYear} Mateng Hub Connect. All rights reserved.
+            © {currentYear} mateng. All rights reserved.
           </p>
         </div>
       </div>

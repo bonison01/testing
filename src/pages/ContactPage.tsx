@@ -12,21 +12,21 @@ const ContactPage = () => {
     subject: "",
     message: ""
   });
-  
+
   const [formSubmitted, setFormSubmitted] = useState(false);
-  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send the data to your backend
     console.log("Contact form submitted:", formData);
     setFormSubmitted(true);
   };
-  
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -42,7 +42,7 @@ const ContactPage = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Contact Information */}
         <section className="py-16">
           <div className="container mx-auto px-6">
@@ -53,51 +53,51 @@ const ContactPage = () => {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Phone</h3>
                 <p className="text-gray-600">
-                  <a href="tel:+11234567890" className="hover:text-primary">+1 (123) 456-7890</a>
+                  <a href="tel:+11234567890" className="hover:text-primary">+1 (91) 8787649928</a>
                 </p>
                 <p className="text-gray-600">
-                  <a href="tel:+19876543210" className="hover:text-primary">+1 (987) 654-3210</a>
+                  <a href="tel:+19876543210" className="hover:text-primary">+1 (91) 8798009341</a>
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md hover-card text-center">
                 <div className="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                   <Mail className="text-primary" />
                 </div>
                 <h3 className="text-lg font-bold mb-2">Email</h3>
                 <p className="text-gray-600">
-                  <a href="mailto:info@mateng.com" className="hover:text-primary">info@mateng.com</a>
+                  <a href="mailto:info@mateng.com" className="hover:text-primary">admin@justmateng.com</a>
                 </p>
-                <p className="text-gray-600">
+                {/* <p className="text-gray-600">
                   <a href="mailto:support@mateng.com" className="hover:text-primary">support@mateng.com</a>
-                </p>
+                </p> */}
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md hover-card text-center">
                 <div className="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                   <MapPin className="text-primary" />
                 </div>
                 <h3 className="text-lg font-bold mb-2">Address</h3>
                 <p className="text-gray-600">
-                  123 Business Avenue<br />
-                  City Center, State 12345<br />
-                  United States
+                  Sagolband Sayang Leirak<br />
+                  Sagolband, Imphal West<br />
+                  Imphal-795004
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md hover-card text-center">
                 <div className="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                   <Clock className="text-primary" />
                 </div>
                 <h3 className="text-lg font-bold mb-2">Hours</h3>
                 <p className="text-gray-600">
-                  Monday - Friday:<br />
-                  9:00 AM - 6:00 PM<br />
+                  ALL DAYS<br />
+                  8:00 AM - 6:00 PM<br />
                   <span className="text-sm">Closed on weekends</span>
                 </p>
               </div>
             </div>
-            
+
             <div className="flex flex-col lg:flex-row gap-12">
               {/* Contact Form */}
               <div className="w-full lg:w-1/2">
@@ -118,7 +118,7 @@ const ContactPage = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       />
                     </div>
-                    
+
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                         Email Address *
@@ -133,7 +133,7 @@ const ContactPage = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       />
                     </div>
-                    
+
                     <div>
                       <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
                         Subject *
@@ -148,7 +148,7 @@ const ContactPage = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       />
                     </div>
-                    
+
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                         Your Message *
@@ -164,7 +164,7 @@ const ContactPage = () => {
                         placeholder="How can we help you?"
                       ></textarea>
                     </div>
-                    
+
                     <Button type="submit">Send Message</Button>
                   </form>
                 ) : (
@@ -180,18 +180,18 @@ const ContactPage = () => {
                   </div>
                 )}
               </div>
-              
+
               {/* Map */}
               <div className="w-full lg:w-1/2">
                 <h2 className="text-3xl font-bold mb-6">Find Us</h2>
                 <div className="bg-gray-200 rounded-lg overflow-hidden h-96 flex justify-center items-center">
                   <div className="text-center">
                     <p className="text-gray-600">Map placeholder</p>
-                    <p className="text-sm text-gray-500">Location: 123 Business Avenue, City Center</p>
+                    <p className="text-sm text-gray-500">Location: Sagolband Sayang Leirak, Sagolband, Imphal West, Imphal-795004</p>
                   </div>
                 </div>
-                
-                {/* Additional Contact Information */}
+
+                {/* Additional Contact Information
                 <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
                   <h3 className="text-xl font-bold mb-4">Other Ways to Connect</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -232,12 +232,12 @@ const ContactPage = () => {
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </section>
-        
+
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
@@ -246,7 +246,7 @@ const ContactPage = () => {
               <p className="section-subtitle mb-12">
                 Quick answers to common questions about our services
               </p>
-              
+
               <div className="space-y-6">
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <h3 className="text-lg font-bold mb-2">What areas do you currently serve?</h3>
@@ -254,14 +254,14 @@ const ContactPage = () => {
                     We currently operate in over 50 communities across the region. You can check if we serve your area by entering your zip code on our service page or contacting our customer support team.
                   </p>
                 </div>
-                
+
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <h3 className="text-lg font-bold mb-2">How can I become a delivery partner?</h3>
                   <p className="text-gray-600">
                     To join our delivery team, visit the Careers section of our website and apply for the Delivery Partner position. We offer flexible schedules and competitive compensation.
                   </p>
                 </div>
-                
+
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <h3 className="text-lg font-bold mb-2">How can I list my business on your marketplace?</h3>
                   <p className="text-gray-600">

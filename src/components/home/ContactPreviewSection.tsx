@@ -11,7 +11,7 @@ const ContactPreviewSection = () => {
           <p className="section-subtitle">
             Have questions or need more information? We'd love to hear from you! Contact our team for personalized assistance.
           </p>
-          <Button asChild size="lg" className="mt-6">
+          <Button asChild size="lg" className="mt-2 bg-gradient-to-r from-green-800 to-emerald-700 text-white hover:from-green-700 hover:to-emerald-600">
             <NavLink to="/contact">Contact Us</NavLink>
           </Button>
         </div>

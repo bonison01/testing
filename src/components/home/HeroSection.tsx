@@ -113,9 +113,14 @@ const HeroSection = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center">
-                      <Button asChild size="lg" className="text-base hover-scale">
+                      <Button
+                        asChild
+                        size="lg"
+                        className="text-base hover-scale text-white bg-gradient-to-r from-green-800 to-emerald-700 hover:from-green-700 hover:to-emerald-600"
+                      >
                         <NavLink to="/competition">Register Now</NavLink>
                       </Button>
+
                       <Button
                         asChild
                         variant="outline"
@@ -155,9 +160,14 @@ const HeroSection = () => {
                       Mateng Hub Connect is revolutionizing hyperlocal delivery with innovative solutions across four powerful verticals. Established in December 2022, we're building the future of community commerce.
                     </p>
                     <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center">
-                      <Button asChild size="lg" className="text-base hover-scale">
+                      <Button
+                        asChild
+                        size="lg"
+                        className="text-base hover-scale text-white bg-gradient-to-r from-green-800 to-emerald-700 hover:from-green-700 hover:to-emerald-600"
+                      >
                         <NavLink to="/services">Our Services</NavLink>
                       </Button>
+
                       <Button
                         asChild
                         variant="outline"
@@ -197,9 +207,15 @@ const HeroSection = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center">
                       <Button asChild size="lg" className="text-base hover-scale">
-                        <NavLink to="/marketplace">
-                          <ShoppingBag className="mr-2" size={20} /> Shop Now
-                        </NavLink>
+                        <Button
+                          asChild
+                          size="lg"
+                          className="text-base hover-scale text-white bg-gradient-to-r from-green-800 to-emerald-700 hover:from-green-700 hover:to-emerald-600"
+                        >
+                          <NavLink to="https://justmateng.com/products">
+                            <ShoppingBag className="mr-2" size={20} /> Shop Now</NavLink>
+                        </Button>
+
                       </Button>
                       <Button
                         asChild
@@ -208,7 +224,8 @@ const HeroSection = () => {
                         // className="bg-white/10 text-base border-white hover:bg-white/20"
                         className="bg-white/10 text-white text-base border-white hover:bg-white/20"
                       >
-                        <NavLink to="/marketplace#how-it-works">How It Works</NavLink>
+                        {/* <NavLink to="/marketplace#how-it-works">How It Works</NavLink> */}
+                        <NavLink to="https://justmateng.com/delivery-rates">Get Delivery Service</NavLink>
                       </Button>
                     </div>
                   </div>

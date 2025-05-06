@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Phone } from "lucide-react";
 import { AuthProvider } from "@/components/AuthContext";
+import ScrollToTop from "@/components/ScrollToTop"; // ✅ Add this line
 
 import Index from "./pages/Index";
 import AboutPage from "./pages/AboutPage";
@@ -30,11 +31,9 @@ const AppContent = () => {
   const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
-    // No animation control needed here as we're using CSS animation
-    // Just force a re-render occasionally to keep the animation fresh
     const interval = setInterval(() => {
       setAnimationKey(prev => prev + 1);
-    }, 60000); // Re-render every minute to ensure animation stays smooth
+    }, 60000);
 
     return () => clearInterval(interval);
   }, []);
@@ -64,7 +63,7 @@ const AppContent = () => {
         </div>
       </div>
 
-      {/* Add padding to push content below the animated header */}
+      {/* Padding to push content below fixed header */}
       <div className="h-10"></div>
 
       <Routes>
@@ -83,7 +82,6 @@ const AppContent = () => {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/applications" element={<AdminApplicationsPage />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
@@ -97,6 +95,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop /> {/* ✅ This handles scroll reset */}
           <AppContent />
         </BrowserRouter>
       </AuthProvider>
