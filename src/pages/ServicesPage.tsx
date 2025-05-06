@@ -281,7 +281,7 @@ const ServicesPage = () => {
                 </div>
                 <div className="w-full lg:w-1/2">
                   <img
-                    src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/3.png"
+                    src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/3.jpg"
                     alt="Mateng Marketplace"
                     className="rounded-lg shadow-xl w-full h-auto"
                   />

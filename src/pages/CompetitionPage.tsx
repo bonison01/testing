@@ -207,11 +207,17 @@ const CompetitionPage = () => {
                 <div className="bg-gray-50 p-4 rounded-lg mb-6">
                   <h4 className="font-semibold mb-2 text-gray-800">Topics Covered:</h4>
                   <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
-                    <li>Basic arithmetic operations</li>
-                    <li>Fractions and decimals</li>
-                    <li>Measurement and geometry</li>
-                    <li>Patterns and basic problem solving</li>
-                    <li>Logical reasoning</li>
+                    <li>Understanding of addition,subtraction,multiplication and division</li>
+                    <li>Fractions</li>
+                    <li>Basic Geometry</li>
+                    <li>Place value and Face value</li>
+                    <li>Ascending and Descending order</li>
+                    <li>Odd and Even numbers,Prime and Composite numbers</li>
+                    <li>Factors and multiples</li>
+                    <li>Simplification</li>
+                    <li>Profit and Loss</li>
+
+
                   </ul>
                 </div>
                 <div className="text-center">
@@ -232,11 +238,18 @@ const CompetitionPage = () => {
                 <div className="bg-gray-50 p-4 rounded-lg mb-6">
                   <h4 className="font-semibold mb-2 text-gray-800">Topics Covered:</h4>
                   <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
-                    <li>Advanced arithmetic operations</li>
-                    <li>Complex fractions and decimals</li>
-                    <li>Geometry and measurement conversions</li>
-                    <li>Data handling and interpretation</li>
-                    <li>Advanced problem solving</li>
+                    <li>Operations on Whole Number</li>
+                    <li>Integers ( Addition and Substraction)</li>
+                    <li>Fractions and Decimals</li>
+                    <li>Data Handling</li>
+                    <li>Basic Geometrical ideas(lines , angles)</li>
+                    <li>Ratio and Proportion</li>
+                    <li>LCM and HCF</li>
+                    <li>Unitary Method</li>
+                    <li>Profit and loss</li>
+                    <li>Natural Numbers</li>
+                    <li>Simplification</li>
+
                   </ul>
                 </div>
                 <div className="text-center">
@@ -252,16 +265,23 @@ const CompetitionPage = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-center">Class 5 Category</h3>
                 <p className="text-gray-600 mb-6 text-center">
-                  For students currently enrolled in Class 5
+                  For students currently enrolled in Class 6
                 </p>
                 <div className="bg-gray-50 p-4 rounded-lg mb-6">
                   <h4 className="font-semibold mb-2 text-gray-800">Topics Covered:</h4>
                   <ul className="text-gray-600 list-disc list-inside text-sm space-y-1">
-                    <li>Advanced arithmetic operations</li>
-                    <li>Complex fractions and decimals</li>
-                    <li>Geometry and measurement conversions</li>
-                    <li>Data handling and interpretation</li>
-                    <li>Advanced problem solving</li>
+                    <li>Place value and Face value</li>
+                    <li>Factors and Multiples</li>
+                    <li>Natural Numbers Decimals and Fractions</li>
+                    <li>Perimeter and Area.(Square, Rectangles and Triangles)</li>
+                    <li>Operation on Numbers: Addition,Substraction,Multiplication and Division</li>
+                    <li>Data handling</li>
+                    <li>Basic Geometry</li>
+                    <li>LCM and HCF</li>
+                    <li>Unitary Method</li>
+                    <li>Profit and loss</li>
+                    <li>Simplification</li>
+
                   </ul>
                 </div>
                 <div className="text-center">

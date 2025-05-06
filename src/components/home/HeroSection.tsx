@@ -79,7 +79,7 @@ const HeroSection = () => {
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
                       backgroundImage:
-                        'url("https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/1.png")',
+                        'url("https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/1.jpg")',
                     }}
                   ></div>
                   <div className="absolute inset-0 bg-black bg-opacity-60"></div>
@@ -118,7 +118,7 @@ const HeroSection = () => {
                         size="lg"
                         className="text-base hover-scale text-white bg-gradient-to-r from-green-800 to-emerald-700 hover:from-green-700 hover:to-emerald-600"
                       >
-                        <NavLink to="/competition">Register Now</NavLink>
+                        <NavLink to="/competition/apply">Register Now</NavLink>
                       </Button>
 
                       <Button
@@ -145,7 +145,7 @@ const HeroSection = () => {
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
                       backgroundImage:
-                        'url("https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/2nd.png")',
+                        'url("https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/2nd.jpg")',
                     }}
                   ></div>
                   <div className="absolute inset-0 bg-black bg-opacity-60"></div>

@@ -210,7 +210,7 @@ const MatengEducationPage = () => {
                       asChild
                       className="w-full py-6 text-lg font-bold bg-white text-green-700 hover:bg-gray-100 shadow-lg transition-all duration-300 rounded-md"
                     >
-                      <a href="/competition">Register Now</a>
+                      <a href="/competition/apply">Register Now</a>
                     </Button>
                   </div>
                 </div>
