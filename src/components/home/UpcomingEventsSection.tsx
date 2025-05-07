@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { NavLink } from "react-router-dom";
-import { CalendarDays, Trophy, Flag } from "lucide-react";
+import { CalendarDays, Trophy, Flag, ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const UpcomingEventsSection = () => {
@@ -40,7 +40,7 @@ const UpcomingEventsSection = () => {
             <p className="text-gray-600 mt-2">Mark your calendar for these exciting opportunities</p>
           </div>
           <Button asChild variant="outline" className="mt-4 md:mt-0">
-            <NavLink to="/events">View All Events</NavLink>
+            {/* <NavLink to="/events">View All Events</NavLink> */}
           </Button>
         </div>
 
@@ -103,7 +103,7 @@ const UpcomingEventsSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div className="absolute bottom-4 left-4 text-white">
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <CalendarDays className="w-4 h-4 mr-1" />
                   <span className="text-sm">
                     {new Date(featuredEvent.event_date).toLocaleDateString(undefined, {
@@ -112,45 +112,46 @@ const UpcomingEventsSection = () => {
                       day: "numeric",
                     })}
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
 
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-3">Competition Details</h3>
+              {/* <h3 className="text-xl font-bold mb-3">Competition Details</h3> */}
 
               <div className="space-y-4">
                 <div className="flex items-start">
                   <div className="bg-emerald-100 p-2 rounded-full mr-3">
-                    <CalendarDays className="w-4 h-4 text-emerald-600" />
+                    <ShoppingCart className="w-4 h-4 text-emerald-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium">Schedule</h4>
+                    <h4 className="font-medium">Mateng Marketplace</h4>
                     <p className="text-sm text-gray-600">
-                      Registration closes{" "}
-                      {new Date("2025-05-30T00:00:00").toLocaleDateString(undefined, {
+                      Shop your needs at best rates.{" "}
+                      {/* {new Date("2025-05-30T00:00:00").toLocaleDateString(undefined, {
                         day: "numeric",
                         month: "short",
                         year: "numeric",
-                      })}
+                      })} */}
                     </p>
 
                   </div>
                 </div>
 
-                <div className="flex items-start">
+                {/* <div className="flex items-start">
                   <div className="bg-emerald-100 p-2 rounded-full mr-3">
                     <Flag className="w-4 h-4 text-emerald-600" />
-                  </div>
-                  <div>
+                  </div> */}
+                {/* <div>
                     <h4 className="font-medium">Eligibility</h4>
                     <p className="text-sm text-gray-600">Open for students of classes 4-6</p>
-                  </div>
-                </div>
+                  </div> */}
+                {/* </div> */}
               </div>
 
               <Button asChild variant="outline" className="w-full mt-6">
-                <NavLink to="/competition#details">Learn More</NavLink>
+                {/* <NavLink to="/competition#details">Shop Now</NavLink> */}
+                <NavLink to="https://www.matengmarket.com/products">Shop Now</NavLink>
               </Button>
             </div>
           </div>
