@@ -175,7 +175,7 @@ const HeroSection = () => {
                         // className="bg-white/10 text-base border-white hover:bg-white/20"
                         className="bg-white/10 text-white text-base border-white hover:bg-white/20"
                       >
-                        <NavLink to="/about">Learn More</NavLink>
+                        <NavLink to="https://justmateng.com/delivery-rates">Get Delivery Service</NavLink>
                       </Button>
                     </div>
                   </div>
