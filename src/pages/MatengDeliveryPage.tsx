@@ -21,10 +21,10 @@ const MatengDeliveryPage = () => {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg" className="bg-white text-green-700 hover:bg-gray-100">
-                  <a href="https://justmateng.com/delivery-rates">View Pricing</a>
+                  <a href="https://matengmarket.com/delivery-rates">View Pricing</a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-white text-green-700 hover:bg-white/10">
-                  <a href="https://justmateng.com/delivery-rates" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                  <a href="https://matengmarket.com/delivery-rates" target="_blank" rel="noopener noreferrer" className="flex items-center">
                     Go to Delivery Platform <ExternalLink className="ml-2" size={18} />
                   </a>
                 </Button>
@@ -290,7 +290,7 @@ const MatengDeliveryPage = () => {
                 Cargo Service
               </Button>
               <Button asChild variant="secondary" size="lg" className="text-mateng-delivery">
-                <a href="https://justmateng.com/delivery-rates" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                <a href="https://matengmarket.com/delivery-rates" target="_blank" rel="noopener noreferrer" className="flex items-center">
                   Go to Delivery Platform <ExternalLink className="ml-2" size={18} />
                 </a>
               </Button>

@@ -45,7 +45,7 @@ const VerticalsSection = () => {
       description: "Explore and discover hidden gems in your local community, from restaurants to services.",
       icon: <Map size={24} />,
       color: "#0EA5E9",
-      link: "https://justmateng.com/discover",
+      link: "https://matengmarket.com/discover",
     },
     {
       title: "Mateng Education",
@@ -59,7 +59,7 @@ const VerticalsSection = () => {
       description: "A platform connecting local vendors, service providers, and customers in a vibrant ecosystem.",
       icon: <ShoppingBag size={24} />,
       color: "#8B5CF6",
-      link: "https://justmateng.com/products",
+      link: "https://matengmarket.com/products",
     },
   ];
 

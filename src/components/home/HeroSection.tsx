@@ -175,7 +175,7 @@ const HeroSection = () => {
                         // className="bg-white/10 text-base border-white hover:bg-white/20"
                         className="bg-white/10 text-white text-base border-white hover:bg-white/20"
                       >
-                        <NavLink to="https://justmateng.com/delivery-rates">Get Delivery Service</NavLink>
+                        <NavLink to="https://matengmarket.com/delivery-rates">Get Delivery Service</NavLink>
                       </Button>
                     </div>
                   </div>
@@ -212,7 +212,7 @@ const HeroSection = () => {
                           size="lg"
                           className="text-base hover-scale text-white bg-gradient-to-r from-green-800 to-emerald-700 hover:from-green-700 hover:to-emerald-600"
                         >
-                          <NavLink to="https://justmateng.com/products">
+                          <NavLink to="https://matengmarket.com/products">
                             <ShoppingBag className="mr-2" size={20} /> Shop Now</NavLink>
                         </Button>
 
@@ -225,7 +225,7 @@ const HeroSection = () => {
                         className="bg-white/10 text-white text-base border-white hover:bg-white/20"
                       >
                         {/* <NavLink to="/marketplace#how-it-works">How It Works</NavLink> */}
-                        <NavLink to="https://justmateng.com/delivery-rates">Get Delivery Service</NavLink>
+                        <NavLink to="https://matengmarket.com/delivery-rates">Get Delivery Service</NavLink>
                       </Button>
                     </div>
                   </div>

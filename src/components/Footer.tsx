@@ -84,7 +84,7 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="https://justmateng.com/discover" className="text-gray-400 hover:text-white transition-colors">
+                <NavLink to="https://matengmarket.com/discover" className="text-gray-400 hover:text-white transition-colors">
                   Mateng Discovery
                 </NavLink>
               </li>
@@ -94,7 +94,7 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/https://justmateng.com/products" className="text-gray-400 hover:text-white transition-colors">
+                <NavLink to="/https://matengmarket.com/products" className="text-gray-400 hover:text-white transition-colors">
                   Mateng Marketplace
                 </NavLink>
               </li>

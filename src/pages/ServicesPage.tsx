@@ -99,7 +99,7 @@ const ServicesPage = () => {
 
                   <Button
                     className="bg-mateng-delivery hover:bg-mateng-delivery/90"
-                    onClick={() => window.location.href = "https://justmateng.com/delivery-rates"}
+                    onClick={() => window.location.href = "https://matengmarket.com/delivery-rates"}
                   >
                     Get Delivery Service
                   </Button>
