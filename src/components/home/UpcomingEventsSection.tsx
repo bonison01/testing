@@ -17,7 +17,7 @@ const UpcomingEventsSection = () => {
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
     image_url:
-      "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800",
+      "https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/aadhaar/imaKeithel.jpg",
   };
 
   // Since there's no need for an API call, use the default event directly

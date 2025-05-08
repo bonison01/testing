@@ -58,7 +58,27 @@ const DeclarationSection = () => {
             </DialogDescription>
           </DialogHeader>
           
+
+
+
+
           <div className="text-sm text-gray-700 space-y-4">
+            <h4 className="font-semibold text-base">1. The decision of the Examination Controller shall be final in case of any dispute.</h4>
+            <h4 className="font-semibold text-base">2. All questions will be Multiple Choice Questions (MCQs)..</h4>
+            <h4 className="font-semibold text-base">3. Answers must be marked on the OMR sheet provided..</h4>
+            <h4 className="font-semibold text-base">4. Overwritten answers will be considered incorrect.</h4>
+            <h4 className="font-semibold text-base">5. There will be no negative marking during the initial evaluation. However, negative marking may be applied in the case of a tie between award holders.</h4>
+            <h4 className="font-semibold text-base">6. Candidates must use only a black ballpoint pen to mark answers.</h4>
+            <h4 className="font-semibold text-base">7. The question paper will consist of 50 questions, each carrying 2 marks.</h4>
+            <h4 className="font-semibold text-base">8. Requests for rechecking must be submitted within 10 days of result declaration, along with a rechecking fee of Rs. 1000 .</h4>
+            <h4 className="font-semibold text-base">9. Candidates must wear their school uniform on the examination day and bring their School ID card.</h4>
+            <h4 className="font-semibold text-base">10. Examination results will be announced within the stipulated time .</h4>
+            <h4 className="font-semibold text-base">11. Results will be published on the notice board of each participating school and on our official website: www.justmateng.com.</h4>
+            <h4 className="font-semibold text-base">12. Submission of application forms will not be accepted after the deadline under any circumstances </h4>
+            <h4 className="font-semibold text-base">13. Admit cards without the seal and signature of the competent authority will not be valid for entry into the examination hall.</h4>
+            <h4 className="font-semibold text-base">14. The examination fee is Rs. 200 (non-refundable). An additional form fee of Rs. 20 applies for offline submissions .</h4>
+          </div>
+          {/* <div className="text-sm text-gray-700 space-y-4">
             <h4 className="font-semibold text-base">1. General Terms</h4>
             <p>
               By participating in the Mental Maths Competition, you agree to be bound by these Terms and Conditions, which constitute a binding agreement between you and the competition organizers.
@@ -108,7 +128,7 @@ const DeclarationSection = () => {
             <p>
               These Terms and Conditions shall be governed by and construed in accordance with the laws of India, and any disputes shall be subject to the exclusive jurisdiction of the courts in India.
             </p>
-          </div>
+          </div> */}
           
           <DialogClose asChild>
             <Button className="mt-6">I Understand</Button>

@@ -17,13 +17,13 @@ const ImportantInfoCard = () => {
       <CardContent className="space-y-4">
         <div>
           <h3 className="font-semibold">Eligibility:</h3>
-          <p>Open to students of Class 4 and Class 5 only</p>
+          <p>Class 4, Class 5 and Class 6</p>
         </div>
         <div>
           <h3 className="font-semibold">Key Dates:</h3>
           <ul className="list-disc list-inside space-y-1">
             <li>Last date for registration: May 30, 2025</li>
-            <li>Admit card issue: June 10, 2025</li>
+            <li>Admit card issue: June 3, 2025</li>
             <li>Competition date: June 8, 2025</li>
             <li>Award ceremony: June 22, 2025</li>
           </ul>
