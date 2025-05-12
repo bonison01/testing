@@ -40,7 +40,7 @@ const AchievementsSection = () => {
     const routes: { [key: number]: string } = {
       1: "/delivery",
       2: "/education",
-      3: "/discover",
+      3: "https://www.matengmarket.com/products",
     };
 
     const targetRoute = routes[id];
