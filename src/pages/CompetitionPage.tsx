@@ -179,7 +179,7 @@ const CompetitionPage = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-2">Eligibility</h3>
                   <p className="text-gray-600">
-                    Open to students currently in Class 4 and Class 5. Participants must register under the correct category based on their current class.
+                    Open to students currently in Class 4, 5 and 6. Participants must register under the correct category based on their current class.
                   </p>
                 </div>
               </div>
@@ -410,7 +410,7 @@ const CompetitionPage = () => {
                     Who is eligible to participate in the competition?
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    The competition is open to students currently studying in Class 4 and Class 5. Participants must register under the correct category based on their current class.
+                    The competition is open to students currently studying in Class 4, 5 and 6. Participants must register under the correct category based on their current class.
                   </AccordionContent>
                 </AccordionItem>
 

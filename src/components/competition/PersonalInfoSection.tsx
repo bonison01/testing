@@ -36,7 +36,7 @@ const PersonalInfoSection = ({ form }: PersonalInfoSectionProps) => {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="father_name"
@@ -50,7 +50,7 @@ const PersonalInfoSection = ({ form }: PersonalInfoSectionProps) => {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="mother_name"
@@ -64,7 +64,7 @@ const PersonalInfoSection = ({ form }: PersonalInfoSectionProps) => {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="date_of_birth"
@@ -103,13 +103,13 @@ const PersonalInfoSection = ({ form }: PersonalInfoSectionProps) => {
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                Child must be of appropriate age for Class 4 or 5
+                Child must be of appropriate age for Class 4, 5 or 6.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="gender"
@@ -131,7 +131,7 @@ const PersonalInfoSection = ({ form }: PersonalInfoSectionProps) => {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="class"
@@ -147,6 +147,7 @@ const PersonalInfoSection = ({ form }: PersonalInfoSectionProps) => {
                 <SelectContent>
                   <SelectItem value="Class 4">Class 4</SelectItem>
                   <SelectItem value="Class 5">Class 5</SelectItem>
+                  <SelectItem value="Class 6">Class 6</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

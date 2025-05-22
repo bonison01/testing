@@ -25,7 +25,7 @@ import ApplicationSuccessPage from "./pages/ApplicationSuccessPage";
 import AdmitCardPage from "./pages/AdmitCardPage";
 import AdminApplicationsPage from "./pages/AdminApplicationsPage";
 import RedirectToDeliveryRates from "./pages/RedirectToDeliveryRates";
-import Marketplace from "./pages/marketplace";
+import Marketplace from "./pages/Marketplace";
 
 
 const queryClient = new QueryClient();
