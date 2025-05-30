@@ -217,7 +217,7 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                 {/* Signature Image - Make it bigger */}
                 <div className="h-16 mb-1">
                   <img
-                    src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/photos/plp3z4lukp.jpeg"
+                    src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/photos/Y%20Ricky%20SIGN.png"
                     alt="Signature"
                     className="h-full object-contain"
                     crossOrigin="anonymous"
@@ -226,7 +226,7 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
 
                 {/* Seal Image - Center it and adjust size */}
                 <img
-                  src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/photos/9sy4hcw9gdr.jpeg"
+                  src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/photos/Round%20Sign.png"
                   alt="Official Seal"
                   className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90"
                   crossOrigin="anonymous"
