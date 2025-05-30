@@ -206,6 +206,7 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
               <li>Carry basic stationery items (pencils, erasers, etc.)</li>
               <li>Calculators are not allowed during the competition</li>
               <li>Mobile phones and electronic devices are strictly prohibited</li>
+              <li>Those candidate who submitted the form through online must report before 60 minutes in the examination centre. </li>
             </ul>
 
             {/* Signature Block */}
@@ -217,7 +218,7 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                 {/* Signature Image - Make it bigger */}
                 <div className="h-16 mb-1">
                   <img
-                    src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/photos/Y%20Ricky%20SIGN.png"
+                    src=""
                     alt="Signature"
                     className="h-full object-contain"
                     crossOrigin="anonymous"
@@ -226,7 +227,7 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
 
                 {/* Seal Image - Center it and adjust size */}
                 <img
-                  src="https://lhzwholxmjolpinyxxsz.supabase.co/storage/v1/object/public/competition_documents/photos/Round%20Sign.png"
+                  src=""
                   alt="Official Seal"
                   className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90"
                   crossOrigin="anonymous"
