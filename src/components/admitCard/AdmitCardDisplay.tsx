@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -41,43 +41,42 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     if (actionButtons) actionButtons.style.display = "none";
 
     const canvas = await html2canvas(element, {
-      scale: 2, // Higher scale for better resolution
+      scale: 2,
       useCORS: true,
     });
 
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
-    const pageWidth = pdf.internal.pageSize.getWidth();  // 210mm
+    const pageWidth = pdf.internal.pageSize.getWidth(); // 210mm
     const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
 
-    const imgProps = {
-      width: canvas.width,
-      height: canvas.height,
-    };
+    const imgWidth = canvas.width;
+    const imgHeight = canvas.height;
 
-    const ratio = Math.min(pageWidth / imgProps.width, pageHeight / imgProps.height);
+    const ratio = Math.min(pageWidth * 2.83465 / imgWidth, pageHeight * 2.83465 / imgHeight); // 1mm ≈ 2.83465px
 
-    const imgWidth = imgProps.width * ratio;
-    const imgHeight = imgProps.height * ratio;
+    const finalImgWidth = imgWidth * ratio;
+    const finalImgHeight = imgHeight * ratio;
 
-    // Center the image on the page
-    const x = (pageWidth - imgWidth) / 2;
-    const y = 10; // top padding
+    const x = (pageWidth - finalImgWidth) / 2;
+    const y = 10;
 
-    pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
+    pdf.addImage(imgData, "PNG", x, y, finalImgWidth, finalImgHeight);
     pdf.save(`${data.applicant_name}_AdmitCard.pdf`);
 
     if (actionButtons) actionButtons.style.display = "flex";
   };
 
-
   return (
     <>
-      {/* Print Styling */}
       <style>
         {`
           @media print {
+            @page {
+              size: A4;
+              margin: 0;
+            }
             body * {
               visibility: hidden !important;
             }
@@ -86,11 +85,12 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
             }
             #admitCard {
               position: absolute;
-              left: 10;
-              top: 10;
-              width: 100%;
-              padding: 10;
-              margin: 10;
+              left: 0;
+              top: 0;
+              width: 794px;
+              height: 1123px;
+              padding: 20px;
+              margin: 0 auto;
               box-shadow: none !important;
             }
             .print\\:hidden {
@@ -100,20 +100,17 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
         `}
       </style>
 
-      {/* Buttons (hidden in PDF & print) */}
-      <div
-        id="admitCardActions"
-        className="mb-4 print:hidden flex gap-2"
-      >
+      {/* Download Button */}
+      <div id="admitCardActions" className="mb-4 print:hidden flex gap-2 justify-center">
         <Button onClick={handleDownloadPdf} variant="default" size="lg">
           Download Admit Card as PDF
         </Button>
       </div>
 
-      {/* Admit Card */}
-      <div className="print:shadow-none" id="admitCard">
-        <Card className="border-2 border-black print:border-0 overflow-hidden max-w-4xl mx-auto print:scale-[0.95] print:transform print:origin-top">
-          <CardHeader className="border-b-2 border-black bg-white print:bg-white px-8 py-6">
+      {/* Admit Card Layout */}
+      <div id="admitCard" className="bg-white w-[794px] mx-auto">
+        <Card className="border-2 border-black overflow-hidden print:shadow-none">
+          <CardHeader className="border-b-2 border-black bg-white px-8 py-6">
             <div className="flex justify-between items-center">
               <div>
                 <CardTitle className="text-2xl font-bold print:text-xl">
@@ -171,8 +168,6 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                   <p className="text-sm text-gray-500">Date of Birth</p>
                   <p className="font-semibold text-lg print:text-base">{data.date_of_birth}</p>
                 </div>
-
-
                 <div>
                   <p className="text-sm text-gray-500">Father's Name</p>
                   <p className="font-semibold text-lg print:text-base">{data.father_name}</p>
@@ -216,38 +211,19 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
               <li>Carry basic stationery items (pencils, erasers, etc.)</li>
               <li>Calculators are not allowed during the competition</li>
               <li>Mobile phones and electronic devices are strictly prohibited</li>
-              <li>Those candidate who submitted the form through online must report before 60 minutes in the examination centre. </li>
+              <li>
+                Those candidate who submitted the form through online must report before 60 minutes
+                in the examination centre.
+              </li>
             </ul>
 
-            {/* Signature Block */}
-            {/* Signature Block */}
             <div className="w-full flex justify-end mt-8 relative">
               <div className="text-right">
                 <p className="text-sm mb-1">Signature of Exam Authority</p>
-
-                {/* Signature Image - Make it bigger */}
-                {/* <div className="h-16 mb-1">
-                  <img
-                    src=""
-                    alt="Signature"
-                    className="h-full object-contain"
-                    crossOrigin="anonymous"
-                  />
-                </div> */}
-
-                {/* Seal Image - Center it and adjust size */}
-                {/* <img
-                  src=""
-                  alt="Official Seal"
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90"
-                  crossOrigin="anonymous"
-                /> */}
-
                 <div className="border-t border-black w-48 mt-2" />
                 <p className="text-xs text-gray-600 mt-1">Mateng Education</p>
               </div>
             </div>
-
           </CardFooter>
         </Card>
       </div>
