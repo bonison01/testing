@@ -37,36 +37,40 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     const element = document.getElementById("admitCard");
     if (!element) return;
 
-    // Temporarily hide action buttons
     const actionButtons = document.getElementById("admitCardActions");
     if (actionButtons) actionButtons.style.display = "none";
 
-    // Capture
     const canvas = await html2canvas(element, {
+      scale: 2, // Higher scale for better resolution
       useCORS: true,
     });
 
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    const pageWidth = pdf.internal.pageSize.getWidth();  // 210mm
+    const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
 
     const imgProps = {
       width: canvas.width,
-      height: canvas.height
+      height: canvas.height,
     };
+
     const ratio = Math.min(pageWidth / imgProps.width, pageHeight / imgProps.height);
 
     const imgWidth = imgProps.width * ratio;
     const imgHeight = imgProps.height * ratio;
 
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    // Center the image on the page
+    const x = (pageWidth - imgWidth) / 2;
+    const y = 10; // top padding
+
+    pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
     pdf.save(`${data.applicant_name}_AdmitCard.pdf`);
 
-    // Restore action buttons
     if (actionButtons) actionButtons.style.display = "flex";
   };
+
 
   return (
     <>
