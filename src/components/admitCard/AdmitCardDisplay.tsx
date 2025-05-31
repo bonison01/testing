@@ -23,6 +23,7 @@ interface AdmitCardData {
   exam_date: string;
   exam_time: string;
   exam_centre: string;
+  date_of_birth: string;
 }
 
 interface AdmitCardDisplayProps {
@@ -81,11 +82,11 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
             }
             #admitCard {
               position: absolute;
-              left: 0;
-              top: 0;
+              left: 10;
+              top: 10;
               width: 100%;
-              padding: 0;
-              margin: 0;
+              padding: 10;
+              margin: 10;
               box-shadow: none !important;
             }
             .print\\:hidden {
@@ -162,6 +163,11 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                   <p className="text-sm text-gray-500">Candidate Name</p>
                   <p className="font-semibold text-lg print:text-base">{data.applicant_name}</p>
                 </div>
+                <div>
+                  <p className="text-sm text-gray-500">Candidate Name</p>
+                  <p className="font-semibold text-lg print:text-base">{data.date_of_birth}</p>
+                </div>
+                
 
                 <div>
                   <p className="text-sm text-gray-500">Father's Name</p>
@@ -216,22 +222,22 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                 <p className="text-sm mb-1">Signature of Exam Authority</p>
 
                 {/* Signature Image - Make it bigger */}
-                <div className="h-16 mb-1">
+                {/* <div className="h-16 mb-1">
                   <img
                     src=""
                     alt="Signature"
                     className="h-full object-contain"
                     crossOrigin="anonymous"
                   />
-                </div>
+                </div> */}
 
                 {/* Seal Image - Center it and adjust size */}
-                <img
+                {/* <img
                   src=""
                   alt="Official Seal"
                   className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90"
                   crossOrigin="anonymous"
-                />
+                /> */}
 
                 <div className="border-t border-black w-48 mt-2" />
                 <p className="text-xs text-gray-600 mt-1">Mateng Education</p>
