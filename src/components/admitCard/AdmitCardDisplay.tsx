@@ -35,21 +35,32 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
 
   const handleDownloadPdf = async () => {
     const element = document.getElementById("admitCard");
+    const actionButtons = document.getElementById("admitCardActions");
+
     if (!element) return;
 
-    const actionButtons = document.getElementById("admitCardActions");
+    // Hide buttons for PDF
     if (actionButtons) actionButtons.style.display = "none";
 
+    // Add fixed size styling for PDF generation
+    element.style.width = "800px";
+    element.style.maxWidth = "none";
+    element.style.transform = "scale(1)";
+    element.style.transformOrigin = "top left";
+
+    // Wait for DOM to apply changes
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     const canvas = await html2canvas(element, {
-      scale: 2, // Higher scale for better resolution
+      scale: 2,
       useCORS: true,
     });
 
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
-    const pageWidth = pdf.internal.pageSize.getWidth();  // 210mm
-    const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
 
     const imgProps = {
       width: canvas.width,
@@ -57,16 +68,20 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     };
 
     const ratio = Math.min(pageWidth / imgProps.width, pageHeight / imgProps.height);
-
     const imgWidth = imgProps.width * ratio;
     const imgHeight = imgProps.height * ratio;
 
-    // Center the image on the page
     const x = (pageWidth - imgWidth) / 2;
-    const y = 10; // top padding
+    const y = 10;
 
     pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
     pdf.save(`${data.applicant_name}_AdmitCard.pdf`);
+
+    // Restore styles
+    element.style.width = "";
+    element.style.maxWidth = "";
+    element.style.transform = "";
+    element.style.transformOrigin = "";
 
     if (actionButtons) actionButtons.style.display = "flex";
   };
