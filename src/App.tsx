@@ -41,7 +41,8 @@ const AppContent = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const contactText = "Please contact 8787649928 for any delivery inquiries. All day service available, Delhi-Imphal in One day service available. The last date for online registration for the Maths Competition has been extended to 5th June. Admit cards will be available from 6th June.";
+  // const contactText = "Please contact 8787649928 for any delivery inquiries. All day service available, Delhi-Imphal in One day service available. The last date for online registration for the Maths Competition has been extended to 5th June. Admit cards will be available from 6th June.";
+  const contactText = "Please contact 8787649928 for any delivery inquiries. The last date for online registration for the Maths Competition has been extended to 5th June. Admit cards will be available from 6th June.";
 
   return (
     <>
