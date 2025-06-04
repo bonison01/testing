@@ -34,20 +34,20 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
   if (!data) return null;
 
   const handleDownloadPdf = async () => {
-    const element = document.getElementById("admitCardWrapper");
-    const actionButtons = document.getElementById("admitCardActions");
+    const wrapper = document.getElementById("admitCardWrapper");
+    const actions = document.getElementById("admitCardActions");
 
-    if (!element) return;
+    if (!wrapper) return;
 
-    if (actionButtons) actionButtons.style.display = "none";
+    // Hide action buttons
+    if (actions) actions.style.display = "none";
 
-    element.style.width = "800px";
-    element.style.padding = "20px";
-    element.style.background = "#fff";
+    // Apply static layout for PDF generation (mimic desktop)
+    wrapper.classList.add("force-pdf-layout");
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    const canvas = await html2canvas(element, {
+    const canvas = await html2canvas(wrapper, {
       scale: 2,
       useCORS: true,
     });
@@ -66,11 +66,9 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
     pdf.save(`${data.applicant_name}_AdmitCard.pdf`);
 
-    element.style.width = "";
-    element.style.padding = "";
-    element.style.background = "";
-
-    if (actionButtons) actionButtons.style.display = "flex";
+    // Restore layout
+    wrapper.classList.remove("force-pdf-layout");
+    if (actions) actions.style.display = "flex";
   };
 
   return (
@@ -97,17 +95,24 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
               display: none !important;
             }
           }
+
+          /* PDF layout fix */
+          .force-pdf-layout .flex-col {
+            flex-direction: row !important;
+          }
+          .force-pdf-layout .md\\:flex-row {
+            flex-direction: row !important;
+          }
         `}
       </style>
 
-      {/* Action Buttons */}
       <div id="admitCardActions" className="mb-4 print:hidden flex gap-2">
         <Button onClick={handleDownloadPdf} variant="default" size="lg">
           Download Admit Card as PDF
         </Button>
       </div>
 
-      {/* Padded Wrapper to Keep Borders Inside Page */}
+      {/* Outer padded container */}
       <div id="admitCardWrapper" className="bg-white px-4 py-6 print:px-6 print:py-8">
         <Card className="border-2 border-black overflow-hidden max-w-4xl mx-auto">
           <CardHeader className="border-b-2 border-black bg-white px-6 py-5">
@@ -143,7 +148,7 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                 )}
               </div>
 
-              {/* Info Section */}
+              {/* Info */}
               <div className="flex-1 space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
@@ -217,7 +222,8 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
               </div>
               <div className="text-right">
                 <p className="text-sm mb-1">Signature of Exam Authority</p>
-                <div className="border-t border-black w-48 mt-2 ml-auto" />
+                <div className="border-t border-black w-48 mt-2" />
+                <p className="text-xs text-gray-600 mt-1">Mateng Education</p>
               </div>
             </div>
           </CardFooter>
