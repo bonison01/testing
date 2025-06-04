@@ -42,13 +42,10 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     // Hide buttons for PDF
     if (actionButtons) actionButtons.style.display = "none";
 
-    // Add fixed size styling for PDF generation
-    element.style.width = "800px";
-    element.style.maxWidth = "none";
-    element.style.transform = "scale(1)";
-    element.style.transformOrigin = "top left";
+    // Force desktop layout
+    element.classList.add("force-desktop");
 
-    // Wait for DOM to apply changes
+    // Wait for styles to apply
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     const canvas = await html2canvas(element, {
@@ -77,12 +74,8 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
     pdf.save(`${data.applicant_name}_AdmitCard.pdf`);
 
-    // Restore styles
-    element.style.width = "";
-    element.style.maxWidth = "";
-    element.style.transform = "";
-    element.style.transformOrigin = "";
-
+    // Restore layout
+    element.classList.remove("force-desktop");
     if (actionButtons) actionButtons.style.display = "flex";
   };
 
@@ -92,28 +85,43 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
       {/* Print Styling */}
       <style>
         {`
-          @media print {
-            body * {
-              visibility: hidden !important;
-            }
-            #admitCard, #admitCard * {
-              visibility: visible !important;
-            }
-            #admitCard {
-              position: absolute;
-              left: 10;
-              top: 10;
-              width: 100%;
-              padding: 10;
-              margin: 10;
-              box-shadow: none !important;
-            }
-            .print\\:hidden {
-              display: none !important;
-            }
-          }
-        `}
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #admitCard, #admitCard * {
+        visibility: visible !important;
+      }
+      #admitCard {
+        position: absolute;
+        left: 10;
+        top: 10;
+        width: 100%;
+        padding: 10;
+        margin: 10;
+        box-shadow: none !important;
+      }
+      .print\\:hidden {
+        display: none !important;
+      }
+    }
+
+    /* Force desktop layout for PDF */
+    .force-desktop .flex-col {
+      flex-direction: row !important;
+    }
+    .force-desktop .md\\:w-1\\/4 {
+      width: 25% !important;
+    }
+    .force-desktop .md\\:w-3\\/4 {
+      width: 75% !important;
+    }
+    .force-desktop .md\\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+  `}
       </style>
+
 
       {/* Buttons (hidden in PDF & print) */}
       <div
