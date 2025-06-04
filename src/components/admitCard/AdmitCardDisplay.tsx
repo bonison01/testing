@@ -214,15 +214,12 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
               </li>
             </ul>
 
-            {/* Signature Row */}
             <div className="w-full flex justify-between mt-8">
-              {/* Candidate Signature */}
               <div className="text-left">
                 <p className="text-sm mb-1">Signature of Candidate</p>
                 <div className="border-t border-black w-48 mt-2" />
               </div>
 
-              {/* Authority Signature */}
               <div className="text-right">
                 <p className="text-sm mb-1">Signature of Exam Authority</p>
                 <div className="border-t border-black w-48 mt-2 ml-auto" />
