@@ -42,13 +42,19 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     // Hide buttons for PDF
     if (actionButtons) actionButtons.style.display = "none";
 
-    // Add fixed size styling for PDF generation
+    // Fix layout for PDF generation
     element.style.width = "800px";
     element.style.maxWidth = "none";
     element.style.transform = "scale(1)";
     element.style.transformOrigin = "top left";
 
-    // Wait for DOM to apply changes
+    // Fix photo alignment
+    const photoContainer = element.querySelector(".photo-wrapper") as HTMLElement;
+    if (photoContainer) {
+      photoContainer.style.alignSelf = "flex-start";
+      photoContainer.style.margin = "0";
+    }
+
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     const canvas = await html2canvas(element, {
@@ -83,13 +89,16 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
     element.style.transform = "";
     element.style.transformOrigin = "";
 
+    if (photoContainer) {
+      photoContainer.style.alignSelf = "";
+      photoContainer.style.margin = "";
+    }
+
     if (actionButtons) actionButtons.style.display = "flex";
   };
 
-
   return (
     <>
-      {/* Print Styling */}
       <style>
         {`
           @media print {
@@ -115,7 +124,6 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
         `}
       </style>
 
-      {/* Buttons (hidden in PDF & print) */}
       <div
         id="admitCardActions"
         className="mb-4 print:hidden flex gap-2"
@@ -125,7 +133,6 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
         </Button>
       </div>
 
-      {/* Admit Card */}
       <div className="print:shadow-none" id="admitCard">
         <Card className="border-2 border-black print:border-0 overflow-hidden max-w-4xl mx-auto print:scale-[0.95] print:transform print:origin-top">
           <CardHeader className="border-b-2 border-black bg-white print:bg-white px-8 py-6">
@@ -147,9 +154,8 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
 
           <CardContent className="pt-8 px-8">
             <div className="flex flex-col md:flex-row gap-8">
-              {/* Photo */}
               <div className="md:w-1/4">
-                <div className="border-2 border-black rounded-md overflow-hidden h-44 w-36 mx-auto md:mx-0">
+                <div className="photo-wrapper border-2 border-black rounded-md overflow-hidden h-44 w-36 mx-auto md:mx-0">
                   {data.photo_url ? (
                     <img
                       src={data.photo_url}
@@ -165,7 +171,6 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                 </div>
               </div>
 
-              {/* Info */}
               <div className="md:w-3/4 space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
@@ -186,7 +191,6 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                   <p className="text-sm text-gray-500">Date of Birth</p>
                   <p className="font-semibold text-lg print:text-base">{data.date_of_birth}</p>
                 </div>
-
 
                 <div>
                   <p className="text-sm text-gray-500">Father's Name</p>
@@ -235,45 +239,21 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
             </ul>
 
             {/* Signature Row */}
-            <div className="w-full flex justify-between mt-8 relative print:flex-col print:items-start">
+            <div className="w-full flex justify-between mt-8">
               {/* Candidate Signature */}
               <div className="text-left">
                 <p className="text-sm mb-1">Signature of Candidate</p>
-
-                {/* Signature Image (Optional: add src to show signature image) */}
-                {/* <div className="h-16 mb-1">
-        <img
-          src=""
-          alt="Candidate Signature"
-          className="h-full object-contain"
-          crossOrigin="anonymous"
-        />
-      </div> */}
-
                 <div className="border-t border-black w-48 mt-2" />
-                <p className="text-xs text-gray-600 mt-1">Candidate</p>
               </div>
 
-              {/* Exam Authority Signature */}
+              {/* Authority Signature */}
               <div className="text-right">
                 <p className="text-sm mb-1">Signature of Exam Authority</p>
-
-                {/* Signature Image (Optional: add src to show signature image) */}
-                {/* <div className="h-16 mb-1">
-        <img
-          src=""
-          alt="Authority Signature"
-          className="h-full object-contain"
-          crossOrigin="anonymous"
-        />
-      </div> */}
-
                 <div className="border-t border-black w-48 mt-2" />
                 <p className="text-xs text-gray-600 mt-1">Mateng Education</p>
               </div>
             </div>
           </CardFooter>
-
         </Card>
       </div>
     </>
