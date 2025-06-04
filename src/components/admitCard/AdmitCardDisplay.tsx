@@ -231,39 +231,49 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
               <li>Carry basic stationery items (pencils, erasers, etc.)</li>
               <li>Calculators are not allowed during the competition</li>
               <li>Mobile phones and electronic devices are strictly prohibited</li>
-              <li>Those candidate who submitted the form through online must report before 60 minutes in the examination centre. </li>
+              <li>Those candidate who submitted the form through online must report before 60 minutes in the examination centre.</li>
             </ul>
 
-            {/* Signature Block */}
-            {/* Signature Block */}
-            <div className="w-full flex justify-end mt-8 relative">
+            {/* Signature Row */}
+            <div className="w-full flex justify-between mt-8 relative print:flex-col print:items-start">
+              {/* Candidate Signature */}
+              <div className="text-left">
+                <p className="text-sm mb-1">Signature of Candidate</p>
+
+                {/* Signature Image (Optional: add src to show signature image) */}
+                {/* <div className="h-16 mb-1">
+        <img
+          src=""
+          alt="Candidate Signature"
+          className="h-full object-contain"
+          crossOrigin="anonymous"
+        />
+      </div> */}
+
+                <div className="border-t border-black w-48 mt-2" />
+                <p className="text-xs text-gray-600 mt-1">Candidate</p>
+              </div>
+
+              {/* Exam Authority Signature */}
               <div className="text-right">
                 <p className="text-sm mb-1">Signature of Exam Authority</p>
 
-                {/* Signature Image - Make it bigger */}
+                {/* Signature Image (Optional: add src to show signature image) */}
                 {/* <div className="h-16 mb-1">
-                  <img
-                    src=""
-                    alt="Signature"
-                    className="h-full object-contain"
-                    crossOrigin="anonymous"
-                  />
-                </div> */}
-
-                {/* Seal Image - Center it and adjust size */}
-                {/* <img
-                  src=""
-                  alt="Official Seal"
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90"
-                  crossOrigin="anonymous"
-                /> */}
+        <img
+          src=""
+          alt="Authority Signature"
+          className="h-full object-contain"
+          crossOrigin="anonymous"
+        />
+      </div> */}
 
                 <div className="border-t border-black w-48 mt-2" />
                 <p className="text-xs text-gray-600 mt-1">Mateng Education</p>
               </div>
             </div>
-
           </CardFooter>
+
         </Card>
       </div>
     </>
