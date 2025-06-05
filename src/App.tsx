@@ -26,6 +26,7 @@ import AdmitCardPage from "./pages/AdmitCardPage";
 import AdminApplicationsPage from "./pages/AdminApplicationsPage";
 import RedirectToDeliveryRates from "./pages/RedirectToDeliveryRates";
 import Marketplace from "./pages/Marketplace";
+import BulkAdmitCardDownloadPage from "./pages/BulkAdmitCardDownloadPage";
 
 
 const queryClient = new QueryClient();
@@ -88,6 +89,7 @@ const AppContent = () => {
         <Route path="/admin/applications" element={<AdminApplicationsPage />} />
         <Route path="/delivery-rates" element={<RedirectToDeliveryRates />} />
         <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/BulkAdmitCardDownloadPage" element={<Marketplace />} />
 
 
         <Route path="*" element={<NotFound />} />
