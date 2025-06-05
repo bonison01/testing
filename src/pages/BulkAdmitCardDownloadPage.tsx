@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -21,6 +21,7 @@ interface AdmitCardData {
 const BulkAdmitCardDownloadPage: React.FC = () => {
     const [admitCards, setAdmitCards] = useState<AdmitCardData[]>([]);
     const [loading, setLoading] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchAllAdmitCards = async () => {
@@ -63,33 +64,20 @@ const BulkAdmitCardDownloadPage: React.FC = () => {
         const pdf = new jsPDF("p", "mm", "a4");
 
         for (let i = 0; i < admitCards.length; i++) {
-            const cardData = admitCards[i];
+            const wrapperId = `admit-card-wrapper-${i}`;
+            const el = document.getElementById(wrapperId);
 
-            // Create a container div dynamically
-            const wrapper = document.createElement("div");
-            wrapper.style.width = "800px";
-            wrapper.style.padding = "20px";
-            wrapper.style.background = "#fff";
-            wrapper.id = `admit-card-${i}`;
-            document.body.appendChild(wrapper);
+            if (!el) continue;
 
-            // Render AdmitCardDisplay into the wrapper
-            const element = (
-                <AdmitCardDisplay data={cardData} />
-            );
+            const canvas = await html2canvas(el, {
+                scale: 2,
+                useCORS: true,
+            });
 
-            // Render to the DOM temporarily
-            const container = document.createElement("div");
-            document.body.appendChild(container);
-            container.appendChild(wrapper);
-
-            // Convert to canvas
-            await new Promise((resolve) => setTimeout(resolve, 300));
-            const canvas = await html2canvas(wrapper, { scale: 2, useCORS: true });
             const imgData = canvas.toDataURL("image/png");
-
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
+
             const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
             const imgWidth = canvas.width * ratio;
             const imgHeight = canvas.height * ratio;
@@ -98,10 +86,6 @@ const BulkAdmitCardDownloadPage: React.FC = () => {
 
             if (i !== 0) pdf.addPage();
             pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
-
-            // Cleanup
-            document.body.removeChild(wrapper);
-            document.body.removeChild(container);
         }
 
         pdf.save("All_Admit_Cards.pdf");
@@ -114,9 +98,10 @@ const BulkAdmitCardDownloadPage: React.FC = () => {
                 {loading ? "Loading..." : "Download All Admit Cards"}
             </Button>
 
-            <div className="hidden">
-                {admitCards.map((card, idx) => (
-                    <div key={idx} id={`card-${idx}`}>
+            {/* Hidden container for rendering all admit cards for capturing */}
+            <div className="hidden" ref={containerRef}>
+                {admitCards.map((card, index) => (
+                    <div key={index} id={`admit-card-wrapper-${index}`}>
                         <AdmitCardDisplay data={card} />
                     </div>
                 ))}
