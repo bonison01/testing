@@ -89,7 +89,7 @@ const AppContent = () => {
         <Route path="/admin/applications" element={<AdminApplicationsPage />} />
         <Route path="/delivery-rates" element={<RedirectToDeliveryRates />} />
         <Route path="/marketplace" element={<Marketplace />} />
-        <Route path="/BulkAdmitCardDownloadPage" element={<Marketplace />} />
+        <Route path="/bulk" element={<BulkAdmitCardDownloadPage />} />
 
 
         <Route path="*" element={<NotFound />} />
