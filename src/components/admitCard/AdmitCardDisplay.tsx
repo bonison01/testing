@@ -160,10 +160,10 @@ const AdmitCardDisplay: React.FC<AdmitCardDisplayProps> = ({ data }) => {
                   <p className="text-sm text-gray-500">Candidate Name</p>
                   <p className="font-semibold text-lg">{data.applicant_name}</p>
                 </div>
-                <div>
+                {/* <div>
                   <p className="text-sm text-gray-500">Date of Birth</p>
                   <p className="font-semibold text-lg">{data.date_of_birth}</p>
-                </div>
+                </div> */}
                 <div>
                   <p className="text-sm text-gray-500">Father's Name</p>
                   <p className="font-semibold text-lg">{data.father_name}</p>
